@@ -125,7 +125,7 @@
 @endsection
 @section('scripts')
 <script>
-    function checkDataWarning(data) { 
+    function checkDataWarning(data) {
         var key_data = [];
         var sumalertall = 0;
         var test1all = 0;
@@ -191,13 +191,13 @@
             // ------------------------- TEST2 -------------------------------------//
 
             var test7 = data.datalaball.length - data.alarmtest3;
-            // var datauclalpc = data.newlpcdatalab[itemdata1][1].alpc; 
+            // var datauclalpc = data.newlpcdatalab[itemdata1][1].alpc;
             // var datalclalpc = data.newlpcdatalab[itemdata1][2].alpc;
             if(data.newlpcdatalab[itemdata1]){
-                var datauclalpc = data.newlpcdatalab[itemdata1][1].alpc; 
+                var datauclalpc = data.newlpcdatalab[itemdata1][1].alpc;
                 var datalclalpc = data.newlpcdatalab[itemdata1][2].alpc;
             }else{
-                var datauclalpc = null; 
+                var datauclalpc = null;
                 var datalclalpc = null;
             }
             var chklpcucl = 0;
@@ -851,7 +851,7 @@
                 vs++;
             });
 
-             
+
             var textslopel = '';
             var textdff = '';
             if (data.slopesem1 >= 0.5 || data.slopesem1 <= -0.5 || data.dffsem1 >= 3.5) {
@@ -1023,7 +1023,7 @@
                 } else {
                     semclass2_4 = 'true';
                 }
-            }        
+            }
             var array = [10, 20, 30, 40, 50];
             var series = [],
                 animals = [],
@@ -1400,7 +1400,7 @@
                 } else {
                     semclass3_4 = 'true';
                 }
-            }    
+            }
             var array = [10, 20, 30, 40, 50];
             var series = [],
                 animals = [],
@@ -2135,7 +2135,7 @@
             } else {
                 semclass32_2 = 'true';
             }
-            
+
             if(data.semdatalab[itemdata].last_sem_class3_2 !== null){
                 if (data.semdatalab[itemdata].last_sem_class3_2 < datalclclass3_2) {
                     if (nalcltest2 == 1) {
@@ -2812,7 +2812,7 @@
             } else {
                 textdff += '<td>-</td>';
             }
-           
+
             var textsem3_3 = '<tr>' +
                 '<td>' + data.modelname.name_model + '</td>' +
                 '<td>' + data.modelname.part + '</td>' +
@@ -3288,7 +3288,7 @@
             } else {
                 semclass5_2 = 'true';
             }
-            
+
             if(data.semdatalab[itemdata].last_sem_class5 !== null){
                 if (data.semdatalab[itemdata].last_sem_class5 < datalclclass5) {
                     if (nalcltest2 == 1) {
@@ -3688,7 +3688,7 @@
                 semclass51_2 = 'true';
             }
 
-            if(data.semdatalab[itemdata].last_sem_class5_1 !== null){    
+            if(data.semdatalab[itemdata].last_sem_class5_1 !== null){
                 if (data.semdatalab[itemdata].last_sem_class5_1 < datalclclass5_1) {
                     if (nalcltest2 == 1) {
                         semclass51_3 = 'false';
@@ -3726,7 +3726,7 @@
                     semclass51_4 = 'true';
                 }
             }else{
-                    
+
                 if (data.semdatalab[itemdata].sem_class5_1 < datalclclass5_1) {
                     if (nalcltest2 == 1) {
                         semclass51_3 = 'false';
@@ -4069,7 +4069,7 @@
             } else {
                 semclass6_2 = 'true';
             }
-            
+
             if(data.semdatalab[itemdata].last_sem_class6 !== null){
                 if (data.semdatalab[itemdata].last_sem_class6 < datalclclass6) {
                     if (nalcltest2 == 1) {
@@ -4108,7 +4108,7 @@
                     semclass6_4 = 'true';
                 }
             }else{
-                    
+
                 if (data.semdatalab[itemdata].sem_class6 < datalclclass6) {
                     if (nalcltest2 == 1) {
                         semclass6_3 = 'false';
@@ -4330,9 +4330,9 @@
                 datest[vs] = fmdate + ' ' + v.lotnumber_lab;
                 vs++;
             });
-   
+
             var textslopel = '';
-            var textdff = ''; 
+            var textdff = '';
             // if (data.slopesem6 >= 0.5 || data.slopesem6 <= -0.5 || data.dffsem6 >= 3.5) {
             //     test5all++;
             //     chksemclass6all++;
@@ -4361,7 +4361,7 @@
             //     textdff += '<td>-</td>';
             // }
 
-            // **** Fixed an issue where notifications were incorrect. // 04-08-23 
+            // **** Fixed an issue where notifications were incorrect. // 04-08-23
             if (data.slopediff_sem6_SLOPE >= 0.5 || data.slopediff_sem6_SLOPE <= -0.5 || data.slopediff_sem6_DIFF >= 3.5) {
                 test5all++;
                 chksemclass6all++;
@@ -4390,7 +4390,7 @@
                 textdff += '<td>-</td>';
             }
 
-           
+
             var textsem6 = '<tr>' +
                 '<td>' + data.modelname.name_model + '</td>' +
                 '<td>' + data.modelname.part + '</td>' +
@@ -5286,6 +5286,12 @@
             var itemdata = data.gcmsdatalab.length - 1;
             var itemdata1 = data.newgcmsdatalab.length - 1;
 
+            // ให้ตรงกับหน้า /output/viewdata/{id} (Pop-up Warning!): ข้อมูลจาก server เรียง save_date desc
+            // หน้า viewdata reverse ก่อนเช็ค ทำให้ gcmsdatalab[itemdata] = lot ปัจจุบัน และ TEST7 ไล่จากเก่า -> ใหม่
+            // (คืนลำดับเดิมตอนจบส่วน GCMS เพราะ rowCallback ด้านล่าง reverse อีกครั้งเอง)
+            data.gcmsdatalaball.reverse();
+            data.gcmsdatalab.reverse();
+            data.newgcmsdatalab.reverse();
 
             var test7 = data.gcmsdatalaball.length - data.alarmtest3;
             var naucltest2 = 0;
@@ -6393,6 +6399,11 @@
 
             $('#dtgcms_high_mw tbody').html(textgcms_high_mw);
             //--------------------------------end gcms4 --------------------------//
+
+            // คืนลำดับเดิม (desc) ให้โค้ดส่วนอื่นที่ใช้ data ต่อ
+            data.gcmsdatalaball.reverse();
+            data.gcmsdatalab.reverse();
+            data.newgcmsdatalab.reverse();
         } else {
             // document.getElementById("show_gcms").style.display = "none";
         }
@@ -6430,7 +6441,7 @@
                 naistest4 = 0;
             } else {
                 naistest4 = 1;
-            } 
+            }
             var test7 = data.ftirdatalaball.length - data.alarmtest3;
 
             // var datalclftir = data.newftirdatalab[itemdata1][2].ftir;
@@ -6751,7 +6762,7 @@
             })
         } else {
             var semclass6show = '';
-        } 
+        }
         if (chkicanionall >= 1) {
             // console.log('IC Anion =>');
             // console.log(icanion3, icanion1, icanion2, icanion4, icanion5);
@@ -6979,7 +6990,7 @@
             'GCMS':GCMS,
             'FTIR':FTIR
         }
-        
+
         // console.log("IC -> "+ IC);
         // console.log("SEM -> "+ SEM);
         // console.log("data.slopesem1 -> "+ data.slopesem1);
@@ -6991,7 +7002,7 @@
         // console.log("data.slopesem5 -> "+ data.slopesem5);
         // console.log("data.slopesem5_1 -> "+ data.slopesem5_1);
         // console.log("data.slopesem6 -> "+ data.slopesem6);
-  
+
         return warning_data;
     }
 
@@ -7073,36 +7084,36 @@
                 var gcms_confirm_st = data.gcms_confirm_st;
                 var ftir_confirm_st = data.ftir_confirm_st;
                 var semtest_confirm_st = data.semtest_confirm_st;
-                
+
                 nodatalpc += '<p style="text-align:center"<i class="fa fa-minus fa-2x" style="color:gray;"></i> </p>';
                 nodatasem += '<p style="text-align:center"<i class="fa fa-minus fa-2x" style="color:gray;"></i> </p>';
                 nodataic += '<p style="text-align:center"<i class="fa fa-minus fa-2x" style="color:gray;"></i> </p>';
                 nodatagcms += '<p style="text-align:center"<i class="fa fa-minus fa-2x" style="color:gray;"></i> </p>';
                 nodataftir += '<p style="text-align:center"<i class="fa fa-minus fa-2x" style="color:gray;"></i> </p>';
                 nodatasemtest += '<p style="text-align:center"<i class="fa fa-minus fa-2x" style="color:gray;"></i> </p>';
- 
-                // nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>'; 
-                nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>'; 
-                nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>'; 
-                nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>'; 
- 
+
+                // nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
+                nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>';
+                nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
+                nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
+
                 nodatasem += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                 nodatasem += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                 nodatasem += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
- 
+
                 nodataic += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                 nodataic += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                 nodataic += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
- 
-                // nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>'; 
-                nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>'; 
+
+                // nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
+                nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>';
                 nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                 nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
- 
+
                 nodataftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                 nodataftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                 nodataftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
- 
+
                 nodatasemtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                 nodatasemtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                 nodatasemtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -7116,7 +7127,7 @@
 
                 var viewdata = '';
                 var id_create_lab = data.id_createlabnew;
-                
+
                 $.ajax({
                     type: 'get',
                     // url: "{{ url('outputgraph') }}",
@@ -7127,7 +7138,7 @@
                         chkpdf:0,
                     },
                     success: function (data) {
-                        var data_warning = checkDataWarning(data); 
+                        var data_warning = checkDataWarning(data);
 
                         console.log(data.gcmsdatalab);
 
@@ -7142,7 +7153,7 @@
                         {
                             var nodatalpc = '';
                             nodatalpc += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x"></i> </p>';
-                            nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>'; 
+                            nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>';
                             nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                             nodatalpc += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
 
@@ -7151,7 +7162,7 @@
                         if(data.oqalot.st_sem == 1)
                         {
                             var nodatasem = '';
-                            nodatasem += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>'; 
+                            nodatasem += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>';
                             nodatasem += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                             nodatasem += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                             nodatasem += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -7160,7 +7171,7 @@
                         if(data.oqalot.st_ic == 1)
                         {
                             var nodataic = '';
-                            nodataic += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>'; 
+                            nodataic += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>';
                             nodataic += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                             nodataic += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                             nodataic += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -7169,8 +7180,8 @@
                         if(data.oqalot.st_gcms == 1)
                         {
                             var nodatagcms ='';
-                            nodatagcms += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>'; 
-                            nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>'; 
+                            nodatagcms += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>';
+                            nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Return (AML)</button></p>';
                             nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                             nodatagcms += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
                             $('td:eq(5)', row).html(nodatagcms);
@@ -7178,7 +7189,7 @@
                         if(data.oqalot.st_ftir == 1)
                         {
                             var nodataftir = '';
-                            nodataftir += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>'; 
+                            nodataftir += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>';
                             nodataftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                             nodataftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                             nodataftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -7188,7 +7199,7 @@
                         if(data.oqalot.st_semtest == 1)
                         {
                             var nodatasemtest = '';
-                            nodatasemtest += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>'; 
+                            nodatasemtest += '<p style="text-align:center;color:#FFD700;"<i class="fa fa-exclamation-triangle fa-2x" ></i> </p>';
                             nodatasemtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled>Edit</button></p>';
                             nodatasemtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> CCP</button></p>';
                             nodatasemtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -7285,9 +7296,9 @@
                                 lpctxt = 'btn-success';
                             }
                         }
-                         
-  
-                        lpc += '<p style="text-align:center"> <input type="hidden" id="chkalllpc'+id_create_lab+'" name="chkalllpc'+id_create_lab+'"  value="'+ccplpc+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.LPC == 'false'?'red':'#00CC33')+'"></i></p>'; 
+
+
+                        lpc += '<p style="text-align:center"> <input type="hidden" id="chkalllpc'+id_create_lab+'" name="chkalllpc'+id_create_lab+'"  value="'+ccplpc+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.LPC == 'false'?'red':'#00CC33')+'"></i></p>';
                         if(data.amlfile){
                             if(data.amlfile.file_lpc){
                                 lpc += '<p style="text-align:center"><button style="width:60px;height:100;border-radius: 30px;  background-color: #128f12;" class="btn btn-success btn-mini" onclick="editDatalpc(' +id_create_lab + ',' + errorlpc_ucl + ');">Return<br>(AML)</button></p>';
@@ -7342,7 +7353,7 @@
                         } else {}
                         // -------------------------END  TEST3 -------------------------------------//
                         // ------------------------- TEST1 -------------------------------------//
-                            
+
                             if (data.semdatalab[itemdatasem].sem_class1	 < data.lcl.class1) {
                                 errorsem_ucl++;
                                 errorsem++;
@@ -7698,7 +7709,7 @@
                         } else if (data.sem33belowvs3 >= data.alarmtest3) {
                             errorsem++;
                         } else {}
-                         
+
                         // -------------------------END  TEST3 -------------------------------------//
                         // ------------------------- TEST1 -------------------------------------//
                         if (data.semdatalab[itemdatasem].sem_class3_3	 < data.lcl.class3_3) {
@@ -7710,7 +7721,7 @@
                             errorsem++;
 
                         } else {}
-                         
+
                         // ------------------------- END TEST1 -------------------------------------//
                         // -------------------------TEST4 -------------------------------------//
                         if (data.semdatalab[itemdatasem].sem_class3_3 > data.is.class3_3) {
@@ -7748,7 +7759,7 @@
                         } else {}
 
                         // -------------------------end TEST4 -------------------------------------//
- 
+
                         // -------------------------TEST5 -------------------------------------//
                         // if (data.slopesem3_3 >= 0.5 || data.slopesem3_3 <= -0.5 || data.dffsem3_3 >= 3.5) {
                         if (data.slopediff_sem3_3_SLOPE >= 0.5 || data.slopediff_sem3_3_SLOPE <= -0.5 || data.slopediff_sem3_3_DIFF >= 3.5) {
@@ -7909,7 +7920,7 @@
                         }
                         // -------------------------end TEST5 -------------------------------------//
                         // -------------------------  end class5 -------------------------------------//
- 
+
                         //   -------------------------  class5.1 -------------------------------------//
                         // -------------------------  TEST2 -------------------------------------//
                         if (data.sem51higher >= data.alarmtest2) {
@@ -8015,10 +8026,10 @@
                                 errorsem++;
 
                             } else {}
-                        }    
+                        }
                         // ------------------------- END TEST1 -------------------------------------//
                         // -------------------------TEST4 -------------------------------------//
-                        if(data.semdatalab[itemdatasem].last_sem_class6 !== null){    
+                        if(data.semdatalab[itemdatasem].last_sem_class6 !== null){
                             if (data.semdatalab[itemdatasem].last_sem_class6 > data.is.class6) {
                                 errorsem_itn++;
                                 errorsem++;
@@ -8048,7 +8059,7 @@
                         } else {}
                         // -------------------------END  TEST3 -------------------------------------//
                         // ------------------------- TEST1 -------------------------------------//
-                        if(data.semdatalab[itemdatasem].last_sem_class6 !== null){    
+                        if(data.semdatalab[itemdatasem].last_sem_class6 !== null){
                             if (data.semdatalab[itemdatasem].last_sem_class6	 < data.lcl.class6) {
                                 errorsem_ucl++;
                                 errorsem++;
@@ -8071,7 +8082,7 @@
                         }
                         // ------------------------- END TEST1 -------------------------------------//
                         // -------------------------TEST4 -------------------------------------//
-                        if(data.semdatalab[itemdatasem].last_sem_class6 !== null){  
+                        if(data.semdatalab[itemdatasem].last_sem_class6 !== null){
                             if (data.semdatalab[itemdatasem].last_sem_class6 > data.is.class6) {
                                 errorsem_itn++;
                                 errorsem++;
@@ -8086,7 +8097,7 @@
                         // -------------------------TEST5 -------------------------------------//
                         // if (data.slopesem6 >= 0.5 || data.slopesem6 <= -0.5 || data.dffsem6 >= 3.5) {
                         //     errorsem++;
-                        // } 
+                        // }
                         // **** Fixed an issue where notifications were incorrect. // 04-08-23
                         // console.log("slopediff_sem6_SLOPE => "+ data.slopediff_sem6_SLOPE);
                         // console.log("slopediff_sem6_DIFF => "+ data.slopediff_sem6_DIFF);
@@ -8094,7 +8105,7 @@
                         if (data.slopediff_sem6_SLOPE >= 0.5 || data.slopediff_sem6_SLOPE <= -0.5 || data.slopediff_sem6_DIFF >= 3.5) {
                             errorsem++;
                         }
-                        
+
                         // -------------------------- end TEST5 -------------------------------------//
                         // -------------------------  end class6 -------------------------------------//
 
@@ -8137,9 +8148,9 @@
                                 semtxt = 'btn-success';
                             }
                         }
-                        // **** coding is  still have problem 
+                        // **** coding is  still have problem
                         console.log("data_warning.SEM ->"+ data_warning.SEM);
-                        sem += '<p style="text-align:center"><input type="hidden" id="chkallsem'+data.semdatalab[itemdatasem].id_createlab+'" name="chkallsem'+data.semdatalab[itemdatasem].id_createlab+'"  value="'+ccpsem+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.SEM == 'false'?'red':'#00CC33')+'"></i></p>'; 
+                        sem += '<p style="text-align:center"><input type="hidden" id="chkallsem'+data.semdatalab[itemdatasem].id_createlab+'" name="chkallsem'+data.semdatalab[itemdatasem].id_createlab+'"  value="'+ccpsem+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.SEM == 'false'?'red':'#00CC33')+'"></i></p>';
                         sem += '<p style="text-align:center"><button style="width:60px;height:100" class="btn btn-primary btn-mini" onclick="editDatasem(' + data.semdatalab[itemdatasem].id_createlab + ',' + errorsem + ');">Edit</button></p>';
                         sem += '<p style="text-align:center"><button style="width:60px;height:100" class="btn ' + semtxt + ' btn-mini" '+btdisable+'">' + semtxtshow + '</button></p>';
                         sem += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -8340,7 +8351,7 @@
                             }
                         }
                         // console.log("data_warning.IC ->"+ data_warning.IC);
-                        ic += '<p style="text-align:center"><input type="hidden"  id="chkallic'+data.icdatalab[icitemdata].id_createlab+'" name="chkallic'+data.icdatalab[icitemdata].id_createlab+'"  value="'+ccpic+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.IC == 'false'?'red':'#00CC33')+'"></i></p>'; 
+                        ic += '<p style="text-align:center"><input type="hidden"  id="chkallic'+data.icdatalab[icitemdata].id_createlab+'" name="chkallic'+data.icdatalab[icitemdata].id_createlab+'"  value="'+ccpic+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.IC == 'false'?'red':'#00CC33')+'"></i></p>';
                         ic += '<p style="text-align:center"><button style="width:60px;height:100" class="btn btn-primary btn-mini" onclick="editDataic(' + data.icdatalab[icitemdata].id_createlab + ',' + erroric + ');">Edit</button></p>';
                         ic += '<p style="text-align:center"><button style="width:60px;height:100" class="btn ' + ictxt + ' btn-mini" '+btdisable+')">' + ictxtshow + '</button></p>';
                         ic += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -8521,7 +8532,7 @@
 
                         // -------------------------END  TEST3 -------------------------------------//
                         // ------------------------- TEST1 -------------------------------------//
-                        
+
                         // var datalcllow_MW =  data.newgcmsdatalab[itemdata1][2].low_MW;
                         // var dataucllow_MW =  data.newgcmsdatalab[itemdata1][1].low_MW;
                         if(data.newgcmsdatalab[itemdata1]){
@@ -8680,24 +8691,24 @@
                                     gcmstxtshow = 'Done CCP';
                                     gcmstxt = 'btn-success';
                                 }
-                            } 
+                            }
 
-                        } 
+                        }
 
                         if (checkreviseTEST7 > 0) {
                             gcms += '<p style="text-align:center"><input type="hidden"  id="chkallgcms'+data.gcmsdatalab[gcmsitemdata].id_createlab+'" name="chkallgcms'+data.gcmsdatalab[gcmsitemdata].id_createlab+'"  value="'+ccpgcms+'"><i class="fa fa-circle fa-2x" style="color:red"></i></p>';
                         }else{
                             gcms += '<p style="text-align:center"><input type="hidden"  id="chkallgcms'+data.gcmsdatalab[gcmsitemdata].id_createlab+'" name="chkallgcms'+data.gcmsdatalab[gcmsitemdata].id_createlab+'"  value="'+ccpgcms+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.GCMS == 'false'?'red':'#00CC33')+'"></i></p>';
                         }
-  
+
                         if(data.amlfile){
                             if(data.amlfile.file_gcms){
-                                gcms += '<p style="text-align:center"><button style="width:60px;height:100;border-radius: 30px;  background-color: #128f12;" class="btn btn-success btn-mini" onclick="editDatagcms(' + data.gcmsdatalab[gcmsitemdata].id_createlab + ',' + errorgcms + ');">Return<br>(AML)</button></p>'; 
+                                gcms += '<p style="text-align:center"><button style="width:60px;height:100;border-radius: 30px;  background-color: #128f12;" class="btn btn-success btn-mini" onclick="editDatagcms(' + data.gcmsdatalab[gcmsitemdata].id_createlab + ',' + errorgcms + ');">Return<br>(AML)</button></p>';
                             }else{
-                                gcms += '<p style="text-align:center"><button style="width:60px;height:100;border-radius: 30px;" class="btn btn-warning btn-mini" onclick="editDatagcms(' + data.gcmsdatalab[gcmsitemdata].id_createlab + ',' + errorgcms + ');">Return<br>(AML)</button></p>'; 
+                                gcms += '<p style="text-align:center"><button style="width:60px;height:100;border-radius: 30px;" class="btn btn-warning btn-mini" onclick="editDatagcms(' + data.gcmsdatalab[gcmsitemdata].id_createlab + ',' + errorgcms + ');">Return<br>(AML)</button></p>';
                             }
                         }else{
-                            gcms += '<p style="text-align:center"><button style="width:60px;height:100;border-radius: 30px;" class="btn btn-warning btn-mini" onclick="editDatagcms(' + data.gcmsdatalab[gcmsitemdata].id_createlab + ',' + errorgcms + ');">Return<br>(AML)</button></p>'; 
+                            gcms += '<p style="text-align:center"><button style="width:60px;height:100;border-radius: 30px;" class="btn btn-warning btn-mini" onclick="editDatagcms(' + data.gcmsdatalab[gcmsitemdata].id_createlab + ',' + errorgcms + ');">Return<br>(AML)</button></p>';
                         }
 
                         gcms += '<p style="text-align:center"><button style="width:60px;height:100" class="btn ' + gcmstxt + ' btn-mini"  '+btdisable+'>' + gcmstxtshow + '</button></p>';
@@ -8789,7 +8800,7 @@
                                 ftirtxt = 'btn-success';
                             }
                         }
-                        ftir += '<p style="text-align:center"><input type="hidden"  id="chkallftir'+data.ftirdatalab[ftiritemdata].id_createlab+'" name="chkallftir'+data.ftirdatalab[ftiritemdata].id_createlab+'"  value="'+ccpftir+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.FTIR == 'false'?'red':'#00CC33')+'"></i></p>'; 
+                        ftir += '<p style="text-align:center"><input type="hidden"  id="chkallftir'+data.ftirdatalab[ftiritemdata].id_createlab+'" name="chkallftir'+data.ftirdatalab[ftiritemdata].id_createlab+'"  value="'+ccpftir+'"><i class="fa fa-circle fa-2x" style="color:'+(data_warning.FTIR == 'false'?'red':'#00CC33')+'"></i></p>';
                         ftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-primary btn-mini" onclick="editDataftir(' + data.ftirdatalab[ftiritemdata].id_createlab + ',' + errorftir + ');">Edit</button></p>';
                         ftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn ' + ftirtxt + ' btn-mini"  '+btdisable+'">' + ftirtxtshow + '</button></p>';
                         ftir += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -8834,7 +8845,7 @@
 
 
                            var semtest = '';
-                            semtest += '<p style="text-align:center"><input type="hidden"  id="chkallsemtest'+data.semtestdatalab.id_createlab+'" name="chkallsemtest'+data.semtestdatalab.id_createlab+'"  value="'+ccpsemtest+'"><i class="fa fa-circle fa-2x" ' + semtestxtallshow + '></i></p>'; 
+                            semtest += '<p style="text-align:center"><input type="hidden"  id="chkallsemtest'+data.semtestdatalab.id_createlab+'" name="chkallsemtest'+data.semtestdatalab.id_createlab+'"  value="'+ccpsemtest+'"><i class="fa fa-circle fa-2x" ' + semtestxtallshow + '></i></p>';
                             semtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-primary btn-mini" onclick="editDatasemtest(' + data.semtestdatalab.id_createlab + ',' + errorsemtest + ');">Edit</button></p>';
                             semtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn ' + semtesttxt + ' btn-mini"  '+btdisable+'">' + semtesttxtshow + '</button></p>';
                             semtest += '<p style="text-align:center"><button type="button" style="width:60px;height:100" class="btn btn-secondary btn-mini" disabled> Ready JNHK</button></p>';
@@ -8861,16 +8872,16 @@
                 '<p style="text-align:center"><a href="../output/viewdata/' + data.id_createlabnew + '"><button class="btn btn-danger btn-sm">&nbsp;<i class="fa fa-line-chart"></i>GRAPH</button></a></p>'+
                 '<p style="text-align:center"><a '+allbtdisable+'><button type="button"class="btn btn-success btn-sm">&nbsp;&nbsp;<i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;CCP&nbsp;&nbsp;&nbsp;</button></a></p>'+
                 '<p style="text-align:center"><a onclick="ghostexcelall('+data.id_createlabnew+')"><button class="btn btn-primary btn-sm">&nbsp;<i class="fa fa-clipboard"></i> GHOST</button></a></p>';
-                
+
                 $('td:eq(8)', row).html(viewdata);
-                
+
 
             }
         });
         $('.btn-success').click(function(){
             oTable.ajax.reload();
         });
-  
+
         var inputmodel = document.getElementById("textmodel");
         inputmodel.addEventListener("keyup", function (event) {
             if (event.keyCode === 13) {
@@ -9080,7 +9091,7 @@
                     }
                 });
     }
-  
+
     function ccpexcel(id)
     {
 
