@@ -18,14 +18,14 @@ use nhkviewic;
 use nhkviewgcms;
 use nhkviewftir;
 use nhkviewsemtest;
-use nhkmail; 
+use nhkmail;
 use slope;
 
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\IOFactory; 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;   
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 
 class IncominglabController extends Controller
@@ -34,7 +34,7 @@ class IncominglabController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
      public function datatable(Request $request)
     {
         // dd($request->textmodel.'<>'.$request->textlot);
@@ -164,13 +164,13 @@ class IncominglabController extends Controller
         //$model = DB::table('nt_model')->where('status_model',1)->get();
         return view('OQA/createlab', ['model' =>$model]);
     }
-    
+
     public function chkmodel(Request $request)
     {
         $id = $request->input('id');
         $model = DB::table('nt_model')->where('id_model',$id)->first();
         $model_p = DB::table('nt_model_parameter')->where('id_model',$id)->where('id_model_p',1)->first();
-        return response()->json(['model' =>  $model,'model_p'=> $model_p]); 
+        return response()->json(['model' =>  $model,'model_p'=> $model_p]);
     }
 
     // public function chkdaterun(Request $request)
@@ -180,7 +180,7 @@ class IncominglabController extends Controller
     //     $countlot = DB::table('nt_oqa_lab')
     //     ->join('nt_oqa_file', 'nt_oqa_file.id_createlab', '=', 'nt_oqa_lab.id_createlab')
     //     ->where('nt_oqa_lab.lotnumber_lab',$request->input('txt_lotnumber'))->first();
-         
+
     //     if( $request->input('chkaddid') == 1 )
     //     {
     //         $datetimenow = date("Y/m/d");
@@ -342,7 +342,7 @@ class IncominglabController extends Controller
     //     }else{
     //         $cksemlpc = 1;
     //     }
-       
+
     //     if($cksemlpc == 1 &&  $ckmodel == 1)
     //     {
     //         if($getcreate != null)
@@ -648,7 +648,7 @@ class IncominglabController extends Controller
 
     // public function chkpartnumber(Request $request)
     // {
-        
+
     //     $chk = 0;
     //     $partnumber = $request->part_number;
     //     $chkmodel = $request->chkmodel;
@@ -669,7 +669,7 @@ class IncominglabController extends Controller
     //         $chk = 3;
     //         return response()->json(['chk' => $chk]);
     //     }
- 
+
     //     // $chk = 1;
     //     return response()->json(['chk' => $chk]);
     // }
@@ -701,7 +701,7 @@ class IncominglabController extends Controller
         // $chk = 1;
         return response()->json(['chk' => $chk]);
     }
- 
+
     // public function chklognumber(Request $request)
     // {
 
@@ -713,8 +713,8 @@ class IncominglabController extends Controller
 	// 	$namemodel = $model->name_model;
 
 	// 	$check_j = strpos($namemodel, "_JNHK_");
-	// 	$countstr = strlen($lotnumber);		
-		
+	// 	$countstr = strlen($lotnumber);
+
     //     if($countstr != intval($model->lot_digit))
     //     {
     //       // จำนวนไม่ตรงตาม lot_digit
@@ -724,9 +724,9 @@ class IncominglabController extends Controller
     //     }
     //     if($chktype == "SGT_Oversea")
     //     {
-			
+
 	// 		if (str_contains($namemodel, '_TNHK_')) // TNHK
-	// 		{ 
+	// 		{
 	// 		    $chk = 0;
 	// 			$sub8 = substr($lotnumber, 7 ,1);
 	// 			$sub9 = substr($lotnumber, 8 ,1);
@@ -743,7 +743,7 @@ class IncominglabController extends Controller
 	// 				}
 	// 			}
 
-	// 			if($sub10 != '_') 
+	// 			if($sub10 != '_')
 	// 			{
 	// 				$chk = 2;
     //                 $text = 'เครื่องหมายไม่ถูกต้อง';
@@ -768,17 +768,17 @@ class IncominglabController extends Controller
 	// 				    return response()->json(['chk' => $chk, 'message' => $text]);
 	// 				}
 	// 			}
-				
+
 	// 		}else{ // JNHK
-				
+
 	// 			$chk = 0;
 	// 			$sub13 = substr($lotnumber, 0 ,3);
-				
+
 	// 			$sub8 = substr($lotnumber, 7 ,1);
 	// 			$sub9 = substr($lotnumber, 8 ,1);
 	// 			$sub10 = substr($lotnumber, 9 ,1);
 	// 			$sub11 = substr($lotnumber, 10 ,1);
-				
+
     //             $chkerrdg = 0;
     //             $maxchk = 0;
     //             if(!empty($model->digit_lot_number))
@@ -789,7 +789,7 @@ class IncominglabController extends Controller
     //                     $chkerrdg++;
     //                 }
     //             }
-    
+
     //             if(!empty($model->digit_lot_number1))
     //             {
     //                 $maxchk++;
@@ -798,7 +798,7 @@ class IncominglabController extends Controller
     //                     $chkerrdg++;
     //                 }
     //             }
-    
+
     //             if(!empty($model->digit_lot_number2))
     //             {
     //                 $maxchk++;
@@ -807,13 +807,13 @@ class IncominglabController extends Controller
     //                     $chkerrdg++;
     //                 }
     //             }
-    
+
     //             if($chkerrdg == $maxchk){
     //                 $chk = 2;
     //                 $text = 'จำนวนการตรวจสอบความถูกต้องไม่เท่ากัน';
     //                 return response()->json(['chk' => $chk, 'message' => $text]);
     //             }
-				
+
 	// 			if($sub8 != '-')
 	// 			{
 	// 				// จำนวนไม่ตรงตาม lot_digit
@@ -824,14 +824,14 @@ class IncominglabController extends Controller
     //                     return response()->json(['chk' => $chk, 'message' => $text]);
 	// 				}
 	// 			}
-				
+
 	// 			if($sub10 != '_')
 	// 			{
 	// 				$chk = 2;
 	// 				$text = 'ไม่พบเครื่องหมาย _';
 	// 				return response()->json(['chk' => $chk, 'message' => $text]);
 	// 			}
-				
+
 	// 			if($model->part == 'UP')
 	// 			{
 	// 				if($sub11 != 'R')
@@ -851,8 +851,8 @@ class IncominglabController extends Controller
 	// 				    return response()->json(['chk' => $chk, 'message' => $text]);
 	// 				}
 	// 			}
-				
-	// 		}				
+
+	// 		}
     //     }
     //     else if($chktype == "SGT_TNHK")
     //     {
@@ -880,9 +880,9 @@ class IncominglabController extends Controller
     //     else if($chktype == "WD_TNHK")
     //     {
 
-    //         $digitlot  = $model->digit_lot_number;   
-    //         $digitlot1 = $model->digit_lot_number1;  
-    //         $digitlot2 = $model->digit_lot_number2;  
+    //         $digitlot  = $model->digit_lot_number;
+    //         $digitlot1 = $model->digit_lot_number1;
+    //         $digitlot2 = $model->digit_lot_number2;
 
     //         // เก็บค่าที่ไม่ว่างไว้เป็น array เพื่อเช็คทีละตัว
     //         $candidates = array_filter([$digitlot, $digitlot1, $digitlot2], function ($v) {
@@ -903,15 +903,15 @@ class IncominglabController extends Controller
     //             $chk = 2;
     //             return response()->json(['chk' => $chk]);
     //         }
-    //     } 
+    //     }
 	// 	else if($chktype == "WD_Oversea")
-    //     {			
-	// 		$chk = 0; 
+    //     {
+	// 		$chk = 0;
     //         $wdqty = $model->wdqty;
     //         $digitlot = $model->digit_lot_number;
     //         $digitlot1 = substr($digitlot, 0 ,1);
     //         $digitlot2 = substr($digitlot, 1 ,1);
-    //         $digitlot3 = substr($digitlot, 2 ,1); 
+    //         $digitlot3 = substr($digitlot, 2 ,1);
 
     //         $sub1 = substr($lotnumber, 0 ,1);
     //         $sub2 = substr($lotnumber, 1 ,1);
@@ -923,19 +923,19 @@ class IncominglabController extends Controller
     //         $sub8 = substr($lotnumber, 7 ,1);
     //         $sub9 = substr($lotnumber, 8 ,1);
     //         $sub10 = substr($lotnumber, 9 ,1);
-			
+
 	// 		$sub13 = substr($lotnumber, 0 ,3);
 	// 		$sub14 = substr($lotnumber, 0 ,4);
-			
+
 	// 		if($wdqty == 3)
-	// 		{ 
+	// 		{
 	// 			$chkerr = 0;
 	// 			$chkrowdigit = 0;
-				
+
 	// 			if(!empty($model->digit_lot_number)){ $chkrowdigit++; }
 	// 			if(!empty($model->digit_lot_number1)){ $chkrowdigit++; }
 	// 			if(!empty($model->digit_lot_number2)){ $chkrowdigit++; }
-				
+
 	// 			if($chkrowdigit == 3){
 	// 				if($sub13 != $model->digit_lot_number){
 	// 					$chkerr++;
@@ -956,26 +956,26 @@ class IncominglabController extends Controller
 	// 			}else{
 	// 				if($sub13 != $model->digit_lot_number){
 	// 					$chkerr++;
-						
+
 	// 				}
 	// 			}
-				
+
 	// 			if($chkrowdigit == $chkerr){
 	// 				$chk = 2;
 	// 				return response()->json(['chk' => $chk]);
 	// 			}
-				
+
 	// 		}
 	// 		else if($wdqty == 4)
 	// 		{
-				
+
 	// 			$chkerr = 0;
 	// 			$chkrowdigit = 0;
-				
+
 	// 			if(!empty($model->digit_lot_number)){ $chkrowdigit++; }
 	// 			if(!empty($model->digit_lot_number1)){ $chkrowdigit++; }
 	// 			if(!empty($model->digit_lot_number2)){ $chkrowdigit++; }
-				
+
 	// 			if($chkrowdigit == 3){
 	// 				if($sub14 != $model->digit_lot_number){
 	// 					$chkerr++;
@@ -998,12 +998,12 @@ class IncominglabController extends Controller
 	// 					$chkerr++;
 	// 				}
 	// 			}
-				
+
 	// 			if($chkrowdigit == $chkerr){
 	// 				$chk = 2;
 	// 				return response()->json(['chk' => $chk]);
 	// 			}
-				
+
 	// 		}
 	// 		else
 	// 		{
@@ -1011,11 +1011,11 @@ class IncominglabController extends Controller
 	// 			return response()->json(['chk' => $chk]);
 	// 		}
 
-    //     } 
+    //     }
     //     $chk = 9;
     //     return response()->json(['chk' => $chk]);
-    // }   
-    
+    // }
+
     public function chklognumber(Request $request)
     {
 
@@ -1094,7 +1094,7 @@ class IncominglabController extends Controller
                     $validDigitLots[] =  $model->digit_lot_number1;
                 }
                 if(!empty($model->digit_lot_number2)){
-                    $validDigitLots[] =  $model->digit_lot_number2;    
+                    $validDigitLots[] =  $model->digit_lot_number2;
                 }
 
                 if (!in_array($first3Lot,$validDigitLots)) {
@@ -1104,7 +1104,7 @@ class IncominglabController extends Controller
                 }
 
                 $validParts = [$model->part_number, $model->part_number2,$model->part_number3];
-                
+
                 if (!in_array($partnumber,$validParts)) {
                     $chk = 1;
                     $text = 'Part number incorrect';
@@ -1364,7 +1364,13 @@ class IncominglabController extends Controller
         $lotfirst = DB::table('nt_oqa_lab')->where('lotnumber_lab',$request->input('txt_lotnumber'))->first();
         // $tga = date('Y-m-d', strtotime($request->input('txt_tga')));
         $ntmodel = DB::table('nt_model')->where('id_model',$idmodel)->first();
-		
+
+        // createlabSubmit ใช้ได้เฉพาะเมนู oqa และ model_type ขึ้นต้นด้วย SGT_ เท่านั้น
+        $denied = $this->checkCreatelabAccess($ntmodel, 'oqa', 'SGT_');
+        if ($denied) {
+            return $denied;
+        }
+
 		if (
 			!$request->input('ck_lpc') &&
 			!$request->input('ck_sem') &&
@@ -1461,18 +1467,18 @@ class IncominglabController extends Controller
                     $sheet = $spreadsheet->setActiveSheetIndex(0);
 
                     $sheet->setCellValue('C5',$createlab['lotnumber_lab']);
-                    $sheet->setCellValue('R3',$starttime);  
-                    $sheet->setCellValue('L2',$tgaDate);  
+                    $sheet->setCellValue('R3',$starttime);
+                    $sheet->setCellValue('L2',$tgaDate);
 
                     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
                     $writer->setPreCalculateFormulas(false);
                     $writer->save(storage_path('app/public/OQA/LPC/'.$lpcname.'.xlsm'));
-                    
+
                     // Excel::load($file, function ($doc)use($createlab,$starttime,$getidcreatelab,$tgaDate) {
                     //     $sheet = $doc->setActiveSheetIndex(0);
                     //     $sheet->setCellValue('C5',$createlab['lotnumber_lab']);
-                    //     $sheet->setCellValue('R3',$starttime);  
-                    //     $sheet->setCellValue('L2',$tgaDate);  
+                    //     $sheet->setCellValue('R3',$starttime);
+                    //     $sheet->setCellValue('L2',$tgaDate);
 
                     // })->setFilename($lpcname)->store('xlsm', storage_path('app/public/OQA/LPC/'));
 
@@ -1655,7 +1661,7 @@ class IncominglabController extends Controller
                     $sheet = $spreadsheet->setActiveSheetIndex(0);
 
                     $sheet->setCellValue('B20',$createlab['lotnumber_lab']);
-                    $sheet->setCellValue('B75',$starttime); 
+                    $sheet->setCellValue('B75',$starttime);
 
                     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
                     $writer->setPreCalculateFormulas(false);
@@ -1664,7 +1670,7 @@ class IncominglabController extends Controller
                     // Excel::load($file, function ($doc)use($createlab,$starttime,$getidcreatelab) {
                     //  $sheet = $doc->setActiveSheetIndex(0);
                     //  $sheet->setCellValue('B20',$createlab['lotnumber_lab']);
-                    //  $sheet->setCellValue('B75',$starttime); 
+                    //  $sheet->setCellValue('B75',$starttime);
                     // })->setFilename($ftirname)->store('xlsx', storage_path('app/public/OQA/FTIR/'));
 
                     $dataftir = [
@@ -1899,7 +1905,7 @@ class IncominglabController extends Controller
         if($request->input('filename') == "LPC")
         {
             if($oqafile->file_lpc !== null){
-                $rename = $oqafile->file_lpc; 
+                $rename = $oqafile->file_lpc;
                 $file = $request->file('customFile')->storeAs('OQA/LPC', $rename,'public');
 
             }else{
@@ -1909,7 +1915,7 @@ class IncominglabController extends Controller
                 $model = DB::table('nt_model')->where('id_model',$oqalab->id_model)->first();
                 $filetime = date('YmdHis');
                 $namefile2 = $filetime.'_LPC_'.$model->name_model.'_'.$oqalab->lotnumber_lab.'.'.$extension;
-                $rename = $namefile2; 
+                $rename = $namefile2;
 
                 $destinationPath = storage_path('app/public/OQA/LPC');
                 $files->move($destinationPath , $rename); // move files to destination folder
@@ -2008,7 +2014,7 @@ class IncominglabController extends Controller
             $oqafile =  DB::table('nt_oqa_file')
             ->join('nt_oqa_lab', 'nt_oqa_lab.id_createlab', '=', 'nt_oqa_file.id_createlab')
             ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
-            ->where('nt_oqa_file.id_createlab',$request->input('id'))->first(); 
+            ->where('nt_oqa_file.id_createlab',$request->input('id'))->first();
 
             if (empty($oqafile)) {
                 DB::rollBack();
@@ -2044,7 +2050,7 @@ class IncominglabController extends Controller
 
                     $avg = str_replace("," , "" , $cell);
                     $avg = floatval($avg);
-                    
+
                     $oqalpc = [
                         'lpc_data' => $avg,
                         'lpc1' => $cell1,
@@ -2066,7 +2072,7 @@ class IncominglabController extends Controller
                     $file_id = $oqafile->file_id;
                     $restart = $sheet->getCell('Y2')->getValue();
                     if(!empty($restart) && str_contains($restart,'WW') == false){// re-test
-                        
+
                         $start = $sheet->getCell('Y4')->getOldCalculatedValue();
                         $end = $sheet->getCell('U4')->getOldCalculatedValue();
 
@@ -2074,7 +2080,7 @@ class IncominglabController extends Controller
                         $end = str_replace(".0", "", $end);
 
                         $start = date('Y-m-d H:i:s',strtotime($start));
-                        $end = date('Y-m-d H:i:s',strtotime($end)); 
+                        $end = date('Y-m-d H:i:s',strtotime($end));
 
                         $dataupdate = [
                             'lpc_begin' => $start,
@@ -2087,7 +2093,7 @@ class IncominglabController extends Controller
                         $end = $sheet->getCell('R4')->getCalculatedValue();
 
                         $start = date('Y-m-d H:i:s',strtotime($start));
-                        $end = date('Y-m-d H:i:s',strtotime($end)); 
+                        $end = date('Y-m-d H:i:s',strtotime($end));
 
                         $dataupdate = [
                             'lpc_begin' => $start,
@@ -2130,7 +2136,7 @@ class IncominglabController extends Controller
             $lpcUCL = nhkviewlpc::UCL($oqafile->id_createlab,$oqafile->id_model);
 
             $worksheet1 = $spreadsheet->setActiveSheetIndexByName('Seagate');
-            
+
             $rawUCL = $worksheet1->getCell('R17')->getValue();
             $UCL_LPC = is_numeric($rawUCL) ? floatval($rawUCL) : 0;
 
@@ -2183,8 +2189,8 @@ class IncominglabController extends Controller
             }
 
             if($chkid == 1 && $lpc > 0)
-            { 
-              
+            {
+
                 $data = [
                     'testter'=>"LPC",
                     'model'=>$oqafile->name_model,
@@ -2197,13 +2203,13 @@ class IncominglabController extends Controller
                 ];
 
                 $mail = new MailController();
-                $mail->mailalarm($data); 
+                $mail->mailalarm($data);
                 $chk = 2;
             }
             else if($chkid == 2 && $lpc > 0)
             {
                 $detaillpc = DB::table('nt_data_lpc')->where('id_createlab', $oqafile->id_createlab)->first();
- 
+
                 $data = DB::table('nt_oqa_lab')
                 ->join('nt_model','nt_model.id_model','=','nt_oqa_lab.id_model')
                 ->where('id_createlab', $oqafile->id_createlab)->first();
@@ -2220,7 +2226,7 @@ class IncominglabController extends Controller
                     'idqla'=>$oqafile->id_createlab,
                     'result'=> @$detaillpc->lpc_data,
                     'UCL'=> floatval($finalUCL),
-                ]); 
+                ]);
 
                 $chk = 2;
 
@@ -2232,8 +2238,8 @@ class IncominglabController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
-                'error' => 'เกิดข้อผิดพลาด: ' . $e->getMessage() . 
-                           ' ที่บรรทัด ' . $e->getLine() . 
+                'error' => 'เกิดข้อผิดพลาด: ' . $e->getMessage() .
+                           ' ที่บรรทัด ' . $e->getLine() .
                            ' ในไฟล์ ' . $e->getFile()
             ], 500);
         }
@@ -2247,10 +2253,10 @@ class IncominglabController extends Controller
         ->join('nt_oqa_lab', 'nt_oqa_lab.id_createlab', '=', 'nt_oqa_file.id_createlab')
         ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
         ->where('nt_oqa_file.id_createlab',$request->input('id'))->first();
-        $file = storage_path('app/public/OQA/SEM/'.$oqafile->file_sem); 
-        $chk = ''; 
+        $file = storage_path('app/public/OQA/SEM/'.$oqafile->file_sem);
+        $chk = '';
 
-        // $sem = nhkviewsem::sem($oqafile->id_createlab,$oqafile->id_model); 
+        // $sem = nhkviewsem::sem($oqafile->id_createlab,$oqafile->id_model);
         // dd($file);
         Excel::load($file, function($doc)use($id,$oqafile,&$chk,$chkid) {
             $sheet = $doc->setActiveSheetIndex(2);
@@ -2263,16 +2269,16 @@ class IncominglabController extends Controller
                 $P9 = $cell;
                 $P11 = $sheet->getCell('P11')->getOldCalculatedValue();
             }
-            
+
             if($cell != "")
             {
                 $ftimechk = $sheet->getCell('I10')->getCalculatedValue();
                 $ftime = date("Y/m/d H:i:s", strtotime($ftimechk));
-    
-                // getOldCalculatedValue 
-                // getCalculatedValue 
+
+                // getOldCalculatedValue
+                // getCalculatedValue
                 $oqasem = [
-                    'sem_class1' => $sheet->getCell('P6')->getOldCalculatedValue(), 
+                    'sem_class1' => $sheet->getCell('P6')->getOldCalculatedValue(),
                     'sem_class2'=> $sheet->getCell('P7')->getCalculatedValue(),
                     'sem_class3' => $sheet->getCell('P8')->getOldCalculatedValue(),
                     'sem_class3_1' => $P9,
@@ -2299,12 +2305,12 @@ class IncominglabController extends Controller
                     'sem_class5_1' => $sheet->getCell('P14')->getOldCalculatedValue(),
                     'sem_class6' => $sheet->getCell('P15')->getOldCalculatedValue(),
                     'sem_datesave' => date('Y-m-d H:i:s'),
-                    'sem_st' => 1, 
+                    'sem_st' => 1,
                 ];
                 DB::table('nt_data_sem')->where('id_createlab', $id)->update($oqasem_head);
-                
+
                 $oqasem_element = [];
-                for ($i=21; $i < 108 ; $i++) { 
+                for ($i=21; $i < 108 ; $i++) {
                     $namecolumn = 'I'.$i;
                     $value = $sheet->getCell('K'.$i)->getOldCalculatedValue();
                     $value = ($value != null)? $value : 0;
@@ -2321,18 +2327,18 @@ class IncominglabController extends Controller
 
                 //----------- measurement L/T -------------
                 $sheetLT = $doc->setActiveSheetIndexByName('Seagate Filtration');
-                $file_id = $oqafile->file_id; 
+                $file_id = $oqafile->file_id;
                 $restart = $sheetLT->getCell('I13')->getValue();
-                               
+
                 if (!empty($restart)) {
                     $start = $sheetLT->getCell('I15')->getOldCalculatedValue();
                     $end = $sheetLT->getCell('I10')->getCalculatedValue();
-                    
+
                     $start = str_replace(".0", "", $start);
-                    
+
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
-                
+                    $end = date('Y-m-d H:i:s',strtotime($end));
+
                     $dataupdate = [
                         'sem_begin' => $start,
                         'sem_lasttime' => $end,
@@ -2341,16 +2347,16 @@ class IncominglabController extends Controller
                 } else {
                     $start = $sheetLT->getCell('H10')->getCalculatedValue();
                     $end = $sheetLT->getCell('I10')->getCalculatedValue();
-                
+
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
-                
+                    $end = date('Y-m-d H:i:s',strtotime($end));
+
                     $dataupdate = [
                         'sem_begin' => $start,
                         'sem_lasttime' => $end,
                     ];
                     DB::table('nt_oqa_file')->where('file_id', $file_id)->update($dataupdate);
-                } 
+                }
 
                 //----------- measurement L/T -------------
 
@@ -2393,7 +2399,7 @@ class IncominglabController extends Controller
             }
 
         }
-        $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first(); 
+        $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first();
         if($chkid == 1 && $sem > 0)
         {
             $data = [
@@ -2432,7 +2438,7 @@ class IncominglabController extends Controller
 
         return response()->json(['success' => $chk,'id'=> $request->input('id'),'chkid'=> $chkid,'sem'=> $sem]);
     }
-   
+
     public function chkconfirmic(Request $request)
     {
         $id = $request->input('id');
@@ -2539,9 +2545,9 @@ class IncominglabController extends Controller
                 $chk = 1;
 
                 //----------- measurement L/T -------------
-                $file_id = $oqafile->file_id; 
+                $file_id = $oqafile->file_id;
                 $restart = $sheet->getCell('S8')->getValue();
-               
+
                 if (!empty($restart)) {
                     $start = $sheet->getCell('S9')->getOldCalculatedValue();
                     $end = $sheet->getCell('M9')->getCalculatedValue();
@@ -2549,7 +2555,7 @@ class IncominglabController extends Controller
                     $start = str_replace(".0", "", $start);
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'ic_begin' => $start,
@@ -2561,14 +2567,14 @@ class IncominglabController extends Controller
                     $end = $sheet->getCell('M9')->getCalculatedValue();
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'ic_begin' => $start,
                         'ic_lasttime' => $end,
                     ];
                     DB::table('nt_oqa_file')->where('file_id', $file_id)->update($dataupdate);
-                } 
+                }
                 //----------- measurement L/T -------------
 
             }
@@ -2640,7 +2646,7 @@ class IncominglabController extends Controller
         }
         return response()->json(['success' =>  $chk,'id'=> $request->input('id')]);
     }
-    
+
     public function chkconfirmgcms(Request $request)
     {
         $id = $request->input('id');
@@ -2649,7 +2655,7 @@ class IncominglabController extends Controller
         ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
         ->where('nt_oqa_file.id_createlab',$request->input('id'))->first();
         // $gcms = nhkviewgcms::gcms($oqafile->id_createlab,$oqafile->id_model);
- 
+
         $countgcms =  DB::table('nt_outgassing_gcms')->where('id_model',$oqafile->id_model)->count();
         $file = storage_path('app/public/OQA/GCMS/'.$oqafile->file_gcms);
         $chk = 0;
@@ -2814,7 +2820,7 @@ class IncominglabController extends Controller
 
                 $file_id = $oqafile->file_id;
                 $restart = $sheet->getCell('J12')->getValue();
-                
+
                 if (!empty($restart)) {
                     $start = $sheet->getCell('J14')->getOldCalculatedValue();
                     $end = $sheet->getCell('C14')->getCalculatedValue();
@@ -2822,7 +2828,7 @@ class IncominglabController extends Controller
                     $start = str_replace(".0", "", $start);
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'gcms_begin' => $start,
@@ -2834,14 +2840,14 @@ class IncominglabController extends Controller
                     $end = $sheet->getCell('C14')->getCalculatedValue();
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'gcms_begin' => $start,
                         'gcms_lasttime' => $end,
                     ];
                     DB::table('nt_oqa_file')->where('file_id', $file_id)->update($dataupdate);
-                } 
+                }
                 //----------- measurement L/T -------------
 
                 $chk = 1;
@@ -2885,8 +2891,8 @@ class IncominglabController extends Controller
 
         }
         $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first();
-        
-        // -------------- check status Sigma ratio ---------------------- 
+
+        // -------------- check status Sigma ratio ----------------------
         $checkretio = new ResultsControlle();
         $val_checkretio =  $checkretio->chkconfirmRatio($oqafile->id_createlab);
         if($val_checkretio > 0){
@@ -2974,7 +2980,7 @@ class IncominglabController extends Controller
                     $start = str_replace(".0", "", $start);
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'ftir_begin' => $start,
@@ -2986,7 +2992,7 @@ class IncominglabController extends Controller
                     $end = $sheet->getCell('B76')->getCalculatedValue();
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'ftir_begin' => $start,
@@ -2994,7 +3000,7 @@ class IncominglabController extends Controller
                     ];
                     DB::table('nt_oqa_file')->where('file_id', $file_id)->update($dataupdate);
                 }
-                 
+
                 //----------- measurement L/T -------------
 
             }
@@ -3069,10 +3075,10 @@ class IncominglabController extends Controller
             // nhkmail::mailalarmstaff($data);
             $chk = 2;
         }
-        
+
         return response()->json(['success' =>  $chk,'id'=> $request->input('id')]);
     }
- 
+
     public function chkconfirmsemtest(Request $request)
     {
         $id = $request->input('id');
@@ -3117,7 +3123,7 @@ class IncominglabController extends Controller
                 $chk = 1;
 
                 //----------- measurement L/T -------------
-                
+
                 $file_id = $oqafile->file_id;
                 $restart = $sheet->getCell('P2')->getValue();
                 if (!empty($restart)) {
@@ -3127,7 +3133,7 @@ class IncominglabController extends Controller
                     $start = str_replace(".0", "", $start);
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'semtest_begin' => $start,
@@ -3139,7 +3145,7 @@ class IncominglabController extends Controller
                     $end = $sheet->getCell('J4')->getCalculatedValue();
 
                     $start = date('Y-m-d H:i:s',strtotime($start));
-                    $end = date('Y-m-d H:i:s',strtotime($end)); 
+                    $end = date('Y-m-d H:i:s',strtotime($end));
 
                     $dataupdate = [
                         'semtest_begin' => $start,
@@ -3147,7 +3153,7 @@ class IncominglabController extends Controller
                     ];
                     DB::table('nt_oqa_file')->where('file_id', $file_id)->update($dataupdate);
                 }
-                
+
                 //----------- measurement L/T -------------
             }
             else
@@ -3215,7 +3221,7 @@ class IncominglabController extends Controller
             nhkmail::mailalarmstaffsemtest($data);
             $chk = 2;
         }
-        
+
         return response()->json(['success' =>  $chk,'id'=> $request->input('id')]);
     }
     public function deleteoqaall(Request $request)
@@ -3239,7 +3245,7 @@ class IncominglabController extends Controller
 
     public function deleteoqaallwd(Request $request)
     {
-        
+
         foreach ($request->id as $item) {
             DB::table('nt_oqa_lab')->where('id_createlab',$item)->delete();
             DB::table('nt_oqa_file')->where('id_createlab',$item)->delete();
@@ -3275,7 +3281,7 @@ class IncominglabController extends Controller
         return response()->json(['success' => 1]);
     }
 
-    
+
     public function sample_nhkviewlpc($mailidcreatelab,$mailidmodel)
     {
         $oqa = DB::table('nt_oqa_lab')
@@ -3287,21 +3293,21 @@ class IncominglabController extends Controller
             $oqadate = DB::table('nt_data_lpc')
             ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_data_lpc.id_createlab')
             ->where('nt_data_lpc.id_createlab',$mailidcreatelab)->where('nt_data_lpc.lpc_st',1)
-            ->first(); 
-            
+            ->first();
+
             $modelname = DB::table('nt_model')
             ->where('id_model',$mailidmodel)
             ->first();
-    
+
             $modelparameter = DB::table('nt_model_parameter')
             ->where('id_model',$mailidmodel)
             ->where('id_model_p',1)
             ->first();
-    
+
             $oqasum = DB::table('nt_model')
             ->where('id_model',$mailidmodel)
             ->first();
-             
+
             $model = DB::table('nt_model_spec')
             ->join('nt_model_spec_type','nt_model_spec_type.id_model_type','=','nt_model_spec.id_model_type')
             ->where('nt_model_spec.id_model',$mailidmodel)
@@ -3313,33 +3319,33 @@ class IncominglabController extends Controller
             ->join('nt_model_spec_type','nt_model_spec_type.id_model_type','=','nt_model_spec.id_model_type')
             ->where('nt_model_spec.id_model',$mailidmodel)
             ->where('nt_model_spec.id_model_type',1)->first();
-    
+
             $tl = DB::table('nt_model_spec')
             ->join('nt_model_spec_type','nt_model_spec_type.id_model_type','=','nt_model_spec.id_model_type')
             ->where('nt_model_spec.id_model',$mailidmodel)
             ->where('nt_model_spec.id_model_type',2)->first();
-    
+
             $ucl = DB::table('nt_model_spec')
             ->join('nt_model_spec_type','nt_model_spec_type.id_model_type','=','nt_model_spec.id_model_type')
             ->where('nt_model_spec.id_model',$mailidmodel)
             ->where('nt_model_spec.id_model_type',3)->first();
-            
-    
+
+
             $lcl = DB::table('nt_model_spec')
             ->join('nt_model_spec_type','nt_model_spec_type.id_model_type','=','nt_model_spec.id_model_type')
             ->where('nt_model_spec.id_model',$mailidmodel)
             ->where('nt_model_spec.id_model_type',4)->first();
-    
+
             $cl = DB::table('nt_model_spec')
             ->join('nt_model_spec_type','nt_model_spec_type.id_model_type','=','nt_model_spec.id_model_type')
             ->where('nt_model_spec.id_model',$mailidmodel)
             ->where('nt_model_spec.id_model_type',5)->first();
-    
+
             $is = DB::table('nt_model_spec')
             ->join('nt_model_spec_type','nt_model_spec_type.id_model_type','=','nt_model_spec.id_model_type')
             ->where('nt_model_spec.id_model',$mailidmodel)
             ->where('nt_model_spec.id_model_type',6)->first();
-        
+
             $new_slopelpc = 0;
             $new_dfflpc = 0;
             if(!empty($oqadate))
@@ -3361,7 +3367,7 @@ class IncominglabController extends Controller
                 ->where('nt_oqa_lab.save_date','>=',$yeardown)
                 ->where('nt_v_data_lpc.lpc_data','!=',null)
                 ->where('nt_oqa_lab.id_model',$mailidmodel);
-            
+
             if($lpcdff->count() < 10 && $lpcdff->count() != 0)
             {
                 $lpcdfflimit = DB::table('nt_v_data_lpc')
@@ -3369,9 +3375,9 @@ class IncominglabController extends Controller
                 ->join('nt_oqa_file','nt_oqa_lab.id_createlab','=','nt_oqa_file.id_createlab')
                 //->where('nt_oqa_lab.save_date','<',$dateend)
                 ->where('nt_v_data_lpc.lpc_data','!=',null)
-                ->where('nt_oqa_lab.id_model',$mailidmodel)->orderby('nt_oqa_lab.save_date','desc')->limit(10)->get(); 
+                ->where('nt_oqa_lab.id_model',$mailidmodel)->orderby('nt_oqa_lab.save_date','desc')->limit(10)->get();
                 $countdfflimit = $lpcdfflimit->count() -1 ;
-                
+
                 $lpcdff = DB::table('nt_v_data_lpc')
                 ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_v_data_lpc.id_createlab')
                 ->join('nt_oqa_file','nt_oqa_lab.id_createlab','=','nt_oqa_file.id_createlab')
@@ -3391,7 +3397,7 @@ class IncominglabController extends Controller
                 {
                     $dffck = ($oqadate->lpc_data - $avgsdff) / $std_dff->std;
                     $dfflpc = number_format($dffck,3);
-                }   
+                }
             $lpcslope = DB::table('nt_v_data_lpc')
             ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_v_data_lpc.id_createlab')
             ->join('nt_oqa_file','nt_oqa_lab.id_createlab','=','nt_oqa_file.id_createlab')
@@ -3399,7 +3405,7 @@ class IncominglabController extends Controller
             ->where('nt_oqa_lab.save_date','>=',$yeardown)
             ->where('nt_oqa_lab.lpc_confirm_st',1)
             ->where('nt_v_data_lpc.lpc_data','!=',null)
-            ->where('nt_oqa_lab.id_model',$mailidmodel);   
+            ->where('nt_oqa_lab.id_model',$mailidmodel);
 
 
 
@@ -3413,14 +3419,14 @@ class IncominglabController extends Controller
             ->where('nt_oqa_lab.id_model',$mailidmodel)->OrderBy('nt_oqa_lab.save_date','desc')->limit(7)->get();
             if($lpcslope->count() < 11 && $lpcslope->count() !=0)
             {
-                
+
                 $lpcslopelimit = DB::table('nt_v_data_lpc')
                 ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_v_data_lpc.id_createlab')
                 ->join('nt_oqa_file','nt_oqa_lab.id_createlab','=','nt_oqa_file.id_createlab')
                 ->where('nt_oqa_lab.save_date','<=',$dateend)
                 ->where('nt_oqa_lab.lpc_confirm_st',1)
                 ->where('nt_v_data_lpc.lpc_data','!=',null)
-                ->where('nt_oqa_lab.id_model',$mailidmodel)->orderby('nt_oqa_lab.save_date','desc')->limit(11)->get(); ; 
+                ->where('nt_oqa_lab.id_model',$mailidmodel)->orderby('nt_oqa_lab.save_date','desc')->limit(11)->get(); ;
                 $countslopelimit = $lpcslopelimit->count() -1 ;
                 $lpcslope = DB::table('nt_v_data_lpc')
                 ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_v_data_lpc.id_createlab')
@@ -3429,7 +3435,7 @@ class IncominglabController extends Controller
                 ->where('nt_oqa_lab.save_date','>=',$lpcslopelimit[$countslopelimit]->save_date)
                 ->where('nt_oqa_lab.lpc_confirm_st',1)
                 ->where('nt_v_data_lpc.lpc_data','!=',null)
-                ->where('nt_oqa_lab.id_model',$mailidmodel); 
+                ->where('nt_oqa_lab.id_model',$mailidmodel);
                 $countslopelimit1 = $lpcslopelimit->count();
                 if($countslopelimit1 <7)
                 {
@@ -3452,9 +3458,9 @@ class IncominglabController extends Controller
 
             $avgslope = $lpcslope->avg('lpc_data');
             $countlpc = $lpcslope->count('lpc_data');
-            
+
             $std_s = $lpcslope->select(DB::raw('STDDEV_SAMP(nt_v_data_lpc.lpc_data) as std'))->first();
-            
+
             $stdlpc = number_format($std_s->std,3);
             $slopepush=array();
             foreach($lpcslopedff7 as $slope)
@@ -3475,11 +3481,11 @@ class IncominglabController extends Controller
                 $slopelpc = null;
             }
             else
-            { 
-                $linearrelpc = slope::linearreg_slope($slopepush,sizeof($slopepush)); 
+            {
+                $linearrelpc = slope::linearreg_slope($slopepush,sizeof($slopepush));
                 $slopelpc = number_format($linearrelpc,3);
             }
-            
+
                 //------------------------------- end slope dff. lpc----------------------------------//
                     $datalab = DB::table('nt_data_lpc')
                     ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_data_lpc.id_createlab')
@@ -3489,7 +3495,7 @@ class IncominglabController extends Controller
                     ->where('nt_oqa_lab.lpc_confirm_st',1)
                     ->where('nt_data_lpc.lpc_data','!=',null)
                     ->limit(9)->orderBy('nt_oqa_lab.save_date', 'desc')->get();
-                
+
                     $oqasum_alpc_sum = intval($oqasum->alpc_sum);
                     if($oqasum_alpc_sum == 0){
                         $oqasum_alpc_sum = 1;
@@ -3504,18 +3510,18 @@ class IncominglabController extends Controller
                     ->where('nt_data_lpc.lpc_data','!=',null)->limit($oqasum_alpc_sum)->orderBy('nt_oqa_lab.save_date', 'desc')->get();
 
                     $newlpcdatalab=array();
-                    foreach ($datalaball as $item){     
+                    foreach ($datalaball as $item){
                         $stdate = date('Y-m-d', strtotime($item->save_date));
                         $data = DB::table('nt_model_history')
                         ->join('nt_model', 'nt_model_history.id_model', '=', 'nt_model.id_model')
                         ->where('nt_model_history.id_model', $item->id_model)
                         ->where('nt_model_history.date_start','<=',$stdate)
                         ->where('nt_model_history.date_end','>=',$stdate)
-                        ->get(); 
-                            
+                        ->get();
+
                         if($data->count() == 0)
                         {
-                        
+
                             $data1 = DB::table('nt_model_history')
                             ->join('nt_model', 'nt_model_history.id_model', '=', 'nt_model.id_model')
                             ->where('nt_model_history.id_model', $item->id_model)
@@ -3527,9 +3533,9 @@ class IncominglabController extends Controller
                                 $data = DB::table('nt_model_history')
                                 ->join('nt_model', 'nt_model_history.id_model', '=', 'nt_model.id_model')
                                 ->where('nt_model_history.id_model', $item->id_model)
-                                ->where('nt_model_history.date_start','<=',$data1->date_start)  
+                                ->where('nt_model_history.date_start','<=',$data1->date_start)
                                 ->where('nt_model_history.date_end','>=',$data1->date_start)
-                                ->get(); 
+                                ->get();
 
                             }
                         }
@@ -3545,13 +3551,13 @@ class IncominglabController extends Controller
                     ->limit(7)->orderBy('nt_oqa_lab.save_date', 'desc')->get();
                     $higher = 0;
                     $below = 0;
-                    
+
                     $countdatalab = count($datalab);
                     $countsortdatalab = count($datalabvs3);
 
                     if($countdatalab >= 9){
-                
-                        foreach ( $datalab as $item){ 
+
+                        foreach ( $datalab as $item){
                             $stdate = date('Y-m-d', strtotime($item->save_date));
                             $datafirst = DB::table('nt_model_history')
                             ->join('nt_model', 'nt_model_history.id_model', '=', 'nt_model.id_model')
@@ -3559,7 +3565,7 @@ class IncominglabController extends Controller
                             ->where('nt_model_history.date_start','<=',$stdate)
                             ->where('nt_model_history.date_end','>=',$stdate)
                             ->where('nt_model_history.id_model_type','=',5)
-                            ->first(); 
+                            ->first();
                             if($datafirst ==  null)
                             {
                                 $data1 = DB::table('nt_model_history')
@@ -3569,14 +3575,14 @@ class IncominglabController extends Controller
                                 ->where('nt_model_history.id_model_type','=',5)
                                 ->orderby('nt_model_history.date_start','asc')
                                 ->first();
-                                
+
                                 $datafirst = DB::table('nt_model_history')
                                 ->join('nt_model', 'nt_model_history.id_model', '=', 'nt_model.id_model')
                                 ->where('nt_model_history.id_model', $item->id_model)
-                                ->where('nt_model_history.date_start','<=',$data1->date_start)  
+                                ->where('nt_model_history.date_start','<=',$data1->date_start)
                                 ->where('nt_model_history.date_end','>=',$data1->date_start)
                                 ->where('nt_model_history.id_model_type','=',5)
-                                ->first(); 
+                                ->first();
                             }
                             if($datafirst->alpc == "N/A" )
                             {
@@ -3593,11 +3599,11 @@ class IncominglabController extends Controller
                             if($natbd == 1)
                             {
                                 if ($datafirst->alpc < $item->lpc_data) {
-                                    $higher++;     
-                                } 
+                                    $higher++;
+                                }
                                 else if ($datafirst->alpc > $item->lpc_data) {
                                     $below++;
-                                } 
+                                }
                                 else {
                                     $higher--;
                                     $below--;
@@ -3612,18 +3618,18 @@ class IncominglabController extends Controller
                         $datalablpc = $datalabvs3[0]->lpc_data;
                     $a=array();
 
-                    foreach ( $datalabvs3 as $item){ 
+                    foreach ( $datalabvs3 as $item){
                         $iss++;
                         if( $iss <= 6)
                         {
                         if ($datalablpc < $datalabvs3[$iss]->lpc_data) {
                             $highervs3++;
                             $datalablpc = $datalabvs3[$iss]->lpc_data;
-                        } 
+                        }
                         else if ($datalablpc >  $datalabvs3[$iss]->lpc_data) {
                             $belowvs3++;
-                            $datalablpc = $datalabvs3[$iss]->lpc_data;   
-                        } 
+                            $datalablpc = $datalabvs3[$iss]->lpc_data;
+                        }
                         else {
                             $highervs3--;
                             $belowvs3--;
@@ -3669,51 +3675,51 @@ class IncominglabController extends Controller
                 {
                     $chk3 = 1;
                 }
-                
+
                 $lpcerror = 0;
-                
+
                 if ($higher >= 9) {
                     $lpcerror++;
-                    
+
                 } else if ($below >= 9) {
                     $lpcerror++;
                 } else {
 
                 }
-                
+
                 if ($highervs3 >= 6) {
                     $lpcerror++;
                 } else if ($belowvs3 >= 6) {
                     $lpcerror++;
-                } else {      
+                } else {
                 }
-    
+
                 if(isset($newlpcdatalab[0])){
 
                     $datalclalpc =  $newlpcdatalab[0][2]->alpc;
                     $datauclalpc =  $newlpcdatalab[0][1]->alpc;
-                
+
 
                     if ($datalab[0]->lpc_data < $datalclalpc) {
-                    
+
                         if($chk3 ==1)
                         {
                             $lpcerror++;
                         }
-                    } 
+                    }
                     else if ($datalab[0]->lpc_data > $datauclalpc ) {
-                    
+
                         if($chk1 ==1)
                         {
                         $lpcerror++;
                         }
-                    } 
+                    }
                     else{
                     }
                 }
 
                 if ($datalab[0]->lpc_data > $is->alpc) {
-                
+
                     if($chk3 ==1)
                     {
                     $lpcerror++;
@@ -3744,39 +3750,39 @@ class IncominglabController extends Controller
     }
 
     public static function slopedifflpclpc($idcreatelab)
-    { 
-   
+    {
+
           $oqalot = DB::table('nt_oqa_lab')
           ->join('nt_oqa_file','nt_oqa_lab.id_createlab','=','nt_oqa_file.id_createlab')
           ->where('nt_oqa_lab.id_createlab',$idcreatelab)
           ->first();
-  
+
           $oqadate = DB::table('nt_data_lpc')
           ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_data_lpc.id_createlab')
           ->where('nt_data_lpc.id_createlab',$idcreatelab)->where('nt_data_lpc.lpc_st',1)
           ->first();
-   
-  
+
+
           if($oqalot !== null){
-  
+
               $id_model = $oqalot->id_model;
-  
+
               $datestart = date("Y-m-d", strtotime("2022-12-01"));
               $a1 = DB::table('nt_model')->where('id_model', $id_model)->first();
               $text1 = $a1->name_model;
               $chktext1 = mb_substr($text1,0,-3);
-  
+
               $file = storage_path('NHK-File/template/report/slopediff_lpc_template.xlsx');
               $filetime = date('YmdHis');
-              
+
               $spacename = str_replace(' ', '', $chktext1);
               $namefile = 'slopediff_lpc_'.$text1;
-  
+
               $checkfile =  storage_path('NHK-File/report/calculation/'.$namefile.'.xlsx'  );
               if(file_exists($checkfile)){
                   @unlink($checkfile);
               }
-              
+
               if($oqadate !== null){
                   $yeardown = date('Y-m-d 00:00:00', strtotime($oqadate->save_date. ' - 1 year'));
                   $dateend = $oqadate->save_date;
@@ -3784,8 +3790,8 @@ class IncominglabController extends Controller
                   $yeardown = date('Y-m-d 00:00:00', strtotime($a1->save_date. ' - 1 year'));
                   $dateend = $a1->save_date;
               }
-  
-      
+
+
               $semdatalab = DB::table('nt_data_lpc')
               ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_data_lpc.id_createlab')
               ->join('nt_oqa_file','nt_oqa_lab.id_createlab','=','nt_oqa_file.id_createlab')
@@ -3793,43 +3799,43 @@ class IncominglabController extends Controller
               ->where('nt_oqa_lab.id_model',$id_model)
               ->where('nt_oqa_lab.sem_confirm_st',1)
               ->orderBy('nt_oqa_lab.save_date', 'desc')->get();
-          
+
               $semdatalaball = DB::table('nt_data_lpc')
               ->join('nt_oqa_lab','nt_oqa_lab.id_createlab','=','nt_data_lpc.id_createlab')
               ->join('nt_oqa_file','nt_oqa_lab.id_createlab','=','nt_oqa_file.id_createlab')
               ->where('nt_oqa_lab.save_date','<=',$dateend)
               ->where('nt_oqa_lab.id_model',$id_model)
               ->where('nt_oqa_lab.lpc_confirm_st',1);
-  
-  
+
+
               $semdatalaball =  $semdatalaball->where('nt_oqa_lab.save_date','>=',$yeardown)->orderBy('nt_oqa_lab.save_date', 'desc')->get();
-              
+
               if(count($semdatalaball) >= 7){
                   Excel::load($file, function ($doc)use( $semdatalaball) {
-                      $i = 2; 
+                      $i = 2;
                       $sum_f_agv = 0;
                       $count_f_agv = 0;
                       $agv = 0;
                       $sheet = $doc->setActiveSheetIndex(0);
                       foreach ($semdatalaball as $key => $value) {
-                          
+
                           $sheet->setCellValue('B'.$i, date('d-m-y',strtotime($value->save_date)));
                           $sheet->setCellValue('C'.$i, $value->lotnumber_lab);
-  
-                          $sheet->setCellValue('D'.$i, number_format($value->lpc_data, 0, '.', '') ); 
-  
+
+                          $sheet->setCellValue('D'.$i, number_format($value->lpc_data, 0, '.', '') );
+
                           $i++;
                       } ;
-  
+
                   })->setFilename($namefile)->store('xlsx', storage_path('NHK-File/report/calculation'));
-          
+
                   $excel = [];
                   $readfile =  storage_path('NHK-File/report/calculation/'.$namefile.'.xlsx'  );
                   $spreadSheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($readfile);
-  
+
                   $n10 = $spreadSheet->getActiveSheet()->getCell('N10')->getCalculatedValue();
                   $n22 = $spreadSheet->getActiveSheet()->getCell('N22')->getCalculatedValue();
-  
+
                   $excel = [
                       'SLOPE' => number_format($n10, 3, '.', ''),
                       'DIFF' => number_format($n22, 3, '.', '')
@@ -3839,14 +3845,14 @@ class IncominglabController extends Controller
                       'SLOPE' => "",
                       'DIFF' => ""
                   ];
-              }   
+              }
           }else{
               $excel = [
                   'SLOPE' => "",
                   'DIFF' => ""
               ];
           }
-  
+
           return $excel;
     }
 
@@ -3866,7 +3872,7 @@ class IncominglabController extends Controller
             ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
             ->join('nt_oqa_file', 'nt_oqa_file.id_createlab', '=', 'nt_oqa_lab.id_createlab')
             ->where('nt_oqa_lab.save_date','>=',$start)->where('nt_oqa_lab.save_date','<=',$end)
-            ->where('nt_oqa_lab.type_lab','like',$typelab.'%') 
+            ->where('nt_oqa_lab.type_lab','like',$typelab.'%')
             ->select('nt_model.*','nt_oqa_lab.id_createlab','nt_oqa_lab.type_lab','nt_oqa_lab.name_lab',
             'nt_oqa_lab.tga',
             'nt_oqa_lab.code_lab',
@@ -3898,7 +3904,7 @@ class IncominglabController extends Controller
             if(!empty($request->date_start) && !empty($request->date_end))
             {
                 $datalist->where('nt_oqa_lab.save_date','>=',$start)->where('nt_oqa_lab.save_date','<=',$end);
-            }    
+            }
             if(!empty($request->textmodel))
             {
                 $datalist->where('nt_model.name_model','like','%'.$request->textmodel.'%');
@@ -3924,7 +3930,7 @@ class IncominglabController extends Controller
             'nt_oqa_file.st_ftir',
             'nt_oqa_file.st_semtest',
             'nt_oqa_lab.save_date as starttime');
-            
+
             // $datalist = DB::table('nt_oqa_lab')
             // ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model');
             // // ->join('nt_oqa_file', 'nt_oqa_file.id_createlab', '=', 'nt_oqa_lab.id_createlab');
@@ -3940,7 +3946,7 @@ class IncominglabController extends Controller
             // {
             //     $datalist->where('nt_oqa_lab.lotnumber_lab','like','%'.$request->textlot.'%');
             // }
-            // $datalist->where('nt_oqa_lab.type_lab','like',$typelab.'%'); 
+            // $datalist->where('nt_oqa_lab.type_lab','like',$typelab.'%');
             // $datalist->select('nt_model.*','nt_oqa_lab.id_createlab','nt_oqa_lab.type_lab','nt_oqa_lab.name_lab',
             // 'nt_oqa_lab.code_lab',
             // 'nt_oqa_lab.tga',
@@ -3950,7 +3956,7 @@ class IncominglabController extends Controller
             // 'nt_oqa_lab.ic_confirm_st',
             // 'nt_oqa_lab.gcms_confirm_st',
             // 'nt_oqa_lab.ftir_confirm_st',
-            // 'nt_oqa_lab.semtest_confirm_st',        
+            // 'nt_oqa_lab.semtest_confirm_st',
             // 'nt_oqa_lab.save_date as starttime');
 
        }
@@ -3966,13 +3972,13 @@ class IncominglabController extends Controller
 
     }
 
-    public function oqafilewd($id) 
+    public function oqafilewd($id)
     {
         $oqafile = DB::table('nt_oqa_file')->where('id_createlab',$id)->first();
         $oqalab = DB::table('nt_oqa_lab')
         ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
         ->where('nt_oqa_lab.id_createlab',$id)->select('nt_oqa_lab.*','nt_model.*','nt_oqa_lab.save_date as starttime')->first();
-    
+
         $btnstatus = 1;
         if(Auth::user()->status == 3){
             $btnstatus = 0;
@@ -3980,11 +3986,45 @@ class IncominglabController extends Controller
         return view('OQA/oqafileWD', ['oqafile' =>$oqafile,'oqalab' =>$oqalab,'btnstatus' => $btnstatus]);
     }
 
-    public function createlabWDSubmit(Request $request)  
+    /**
+     * ตรวจสอบเมนู (Session namemenu) และประเภท model ก่อนสร้าง OQA Incoming
+     * คืนค่า JSON response ถ้าไม่ผ่าน, คืน null ถ้าผ่าน
+     */
+    private function checkCreatelabAccess($ntmodel, $requiredMenu, $requiredPrefix)
+    {
+        $namemenu = Session::get('namemenu');
+
+        if ($namemenu !== $requiredMenu) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'ไม่สามารถบันทึกได้: เมนูปัจจุบัน (' . ($namemenu ?: '-') . ') ไม่ใช่ ' . strtoupper($requiredMenu)
+                    . ' กรุณาเข้าเมนู ' . strtoupper($requiredMenu) . ' ก่อนสร้างรายการ',
+            ]);
+        }
+
+        if (!$ntmodel) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'ไม่พบข้อมูล Model ที่เลือก',
+            ]);
+        }
+
+        if (strpos((string) $ntmodel->model_type, $requiredPrefix) !== 0) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'ไม่สามารถบันทึกได้: Model ' . $ntmodel->name_model . ' เป็นประเภท ' . $ntmodel->model_type
+                    . ' (เมนู ' . strtoupper($requiredMenu) . ' ใช้ได้เฉพาะ ' . $requiredPrefix . '* เท่านั้น)',
+            ]);
+        }
+
+        return null;
+    }
+
+    public function createlabWDSubmit(Request $request)
     {
 
         ini_set('memory_limit', '-1');
-        set_time_limit(5000);  
+        set_time_limit(5000);
 
         $idmodel = $request->input('chkmodel');
         $chkaddid = $request->input('chkaddid');
@@ -3993,6 +4033,12 @@ class IncominglabController extends Controller
         $lotfirst = DB::table('nt_oqa_lab')->where('lotnumber_lab',$request->input('txt_lotnumber'))->first();
 
         $ntmodel = DB::table('nt_model')->where('id_model',$idmodel)->first();
+
+        // createlabWDSubmit ใช้ได้เฉพาะเมนู oqa2 และ model_type ขึ้นต้นด้วย WD_ เท่านั้น
+        $denied = $this->checkCreatelabAccess($ntmodel, 'oqa2', 'WD_');
+        if ($denied) {
+            return $denied;
+        }
 
         $tgaDate = null;
         if ($request->filled('txt_tga')) {
@@ -4065,7 +4111,7 @@ class IncominglabController extends Controller
         $lot = $request->input('txt_lotnumber');
         if( $request->input('ck_lpc') == 1 )
         {
-            
+
             $lpcname =  $starttime.'_LPC_'.$model.'_'.$part.'_'.$lot;
             $lpcfilename = $lpcname.'.xlsm';
             $st_lpc = 1;
@@ -4091,7 +4137,7 @@ class IncominglabController extends Controller
             }
 
             $outputFile = $exportDirectory . '/' . $lpcname . '.xlsm';
-            
+
             $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->setPreCalculateFormulas(false);
             $writer->save($outputFile);
@@ -4109,7 +4155,7 @@ class IncominglabController extends Controller
             }
 
         }else{
-            
+
             if($lotcount == 0)
             {
                 $st_lpc = 0;
@@ -4134,7 +4180,7 @@ class IncominglabController extends Controller
                 $sheet->getCell('H10')->setValue($starttime);
 
             })->setFilename($semname)->store('xlsx', storage_path('app/public/OQA/SEM/'));
-            
+
             $datasem = [
                 'id_createlab' => $getidcreatelab,
             ];
@@ -4161,7 +4207,7 @@ class IncominglabController extends Controller
             $date_ic =   $savedate;
             $ic_startime = $savedate;
             $file = storage_path('NHK-File/model-rowfile WD/'.$ntmodel->file_folder.'/'.$modelparameter->ic_file);
-            
+
             Excel::load($file, function ($doc)use($createlab,$starttime,$getidcreatelab) {
                 $sheet = $doc->setActiveSheetIndex(0);
                 $sheet->getCell('C7')->setValue($createlab['lotnumber_lab']);
@@ -4179,7 +4225,7 @@ class IncominglabController extends Controller
             }
 
         }else{
-        
+
             $st_ic = 0;
             $icfilename = null;
             $date_ic =  null;
@@ -4220,8 +4266,8 @@ class IncominglabController extends Controller
             }
 
         }else{
-                
-                
+
+
             $st_ftir = 0;
             $ftirfilename = null;
             $date_ftir = null;
@@ -4231,7 +4277,7 @@ class IncominglabController extends Controller
 
         if( $request->input('ck_semtest')  == 1 )
         {
-                   
+
             $semtestname =  $starttime.'_MESA_'.$model.'_'.$part.'_'.$lot;
             $semtestfilename = $semtestname.'.xlsx';
             $st_semtest = 1;
@@ -4256,13 +4302,13 @@ class IncominglabController extends Controller
             }
 
         }else{
-        
+
             $st_semtest = 0;
             $semtestfilename = null;
             $date_semtest = null;
             $semtest_startime = null;
 
-        } 
+        }
 
         if( $request->input('ck_gcms')  == 1 )
         {
@@ -4276,7 +4322,7 @@ class IncominglabController extends Controller
             Excel::load($file, function ($doc)use($createlab,$starttime,$getidcreatelab) {
                 $sheet = $doc->setActiveSheetIndex(0);
                 $sheet->getCell('K5')->setValue($createlab['lotnumber_lab']);
-                $sheet->getCell('K6')->setValue($starttime); 
+                $sheet->getCell('K6')->setValue($starttime);
             })->setFilename($gcmsname)->store('xlsx', storage_path('app/public/OQA/GCMS/'));
 
             $datagcms = [
@@ -4333,7 +4379,7 @@ class IncominglabController extends Controller
         }
 
         return response()->json(['success' =>  1,'id'=> $getidcreatelab]);
-          
+
     }
 
     public function uploadoqafileWD($id,$labname)
@@ -4344,7 +4390,7 @@ class IncominglabController extends Controller
     }
 
     public function uplaodoqaWDSubmit(Request $request)
-    { 
+    {
 
         $id = $request->input('idfile');
         $namefile = $request->input('filename');
@@ -4354,7 +4400,7 @@ class IncominglabController extends Controller
         if($request->input('filename') == "LPC")
         {
             if($oqafile->file_lpc !== null){
-                $rename = $oqafile->file_lpc; 
+                $rename = $oqafile->file_lpc;
                 $file = $request->file('customFile')->storeAs('OQA/LPC', $rename,'public');
 
             }else{
@@ -4364,7 +4410,7 @@ class IncominglabController extends Controller
                 $model = DB::table('nt_model')->where('id_model',$oqalab->id_model)->first();
                 $filetime = date('YmdHis');
                 $namefile2 = $filetime.'_LPC_'.$model->name_model.'_'.$oqalab->lotnumber_lab.'.'.$extension;
-                $rename = $namefile2; 
+                $rename = $namefile2;
 
                 $destinationPath = storage_path('app/public/OQA/LPC');
                 $files->move($destinationPath , $rename); // move files to destination folder
@@ -4479,9 +4525,9 @@ class IncominglabController extends Controller
                 Log::error("File not found for chkconfirmlpcWD: ID {$id}, Path: {$filePath}");
                 return response()->json(['success' => 0, 'message' => 'ไม่พบไฟล์ Excel ที่ต้องการประมวลผล'], 404);
             }
-            
+
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
-            
+
             $sheet = $spreadsheet->setActiveSheetIndex(0);
             $ftimechk = $sheet->getCell('R4')->getCalculatedValue();
             $cell = $sheet->getCell('M24')->getCalculatedValue();
@@ -4501,13 +4547,13 @@ class IncominglabController extends Controller
                 ]);
                 $chk = 1;
             }
-            
+
             if ($oqafile->stlpc_mail === null) {
                 DB::table('nt_oqa_lab')->where('id_createlab', $id)->update(['stlpc_mail' => 1]);
             } elseif ($oqafile->stlpc_mail == 1 && $chkid == 2) {
                 DB::table('nt_oqa_lab')->where('id_createlab', $id)->update(['stlpc_mail' => 2]);
             }
-            
+
             $data = [
                 'subject' => "[CAS program]_You have a new cleanliness results!!!",
                 'testter' => "LPC",
@@ -4525,10 +4571,10 @@ class IncominglabController extends Controller
             return response()->json(['success' => $chk, 'id' => $id, 'chkid' => $chkid]);
 
         } catch (\Exception $e) {
-           
+
             // ส่ง Response แจ้งข้อผิดพลาดกลับไป เพื่อให้รู้ว่าเกิดอะไรขึ้น
             return response()->json([
-                'success' => 0, 
+                'success' => 0,
                 'message' => 'เกิดข้อผิดพลาดในระบบ: ' . $e->getMessage()
             ], 500);
         }
@@ -4542,9 +4588,9 @@ class IncominglabController extends Controller
         ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
         ->where('nt_oqa_file.id_createlab',$request->input('id'))
         ->first();
-        
-        $file = storage_path('app/public/OQA/SEM/'.$oqafile->file_sem); 
-        $chk = ''; 
+
+        $file = storage_path('app/public/OQA/SEM/'.$oqafile->file_sem);
+        $chk = '';
 
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $sheet = $spreadsheet->getSheetByName('Summary(Tables)');
@@ -4565,7 +4611,7 @@ class IncominglabController extends Controller
         }
 
         //--------- Use in host Orange only -----------
- 
+
         $subject = "[CAS program]_You have a new cleanliness results!!!";
 
         $data = [
@@ -4576,7 +4622,7 @@ class IncominglabController extends Controller
             'date'=>$oqafile->sem_update,
         ];
         $mail = new MailController();
-        $mail->mailconfirmlpcWD($data); 
+        $mail->mailconfirmlpcWD($data);
 
         if($oqafile->stsem_mail == null)
         {
@@ -4599,11 +4645,11 @@ class IncominglabController extends Controller
         }
         $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first();
         $chkid = $request->input('chkid');
-         
+
 
         return response()->json(['success' => $chk,'id'=> $request->input('id'),'chkid'=> $chkid ]);
     }
-    
+
     public function chkconfirmicWD(Request $request)
     {
         $id = $request->input('id');
@@ -4632,7 +4678,7 @@ class IncominglabController extends Controller
             $chk = 1;
 
         }else{
-        
+
             $chk = 0;
         }
 
@@ -4646,7 +4692,7 @@ class IncominglabController extends Controller
         ];
         $mail = new MailController();
         $mail->mailconfirmlpcWD($data);
-         
+
         if($oqafile->stic_mail == null)
         {
             $dataupdate = [
@@ -4668,7 +4714,7 @@ class IncominglabController extends Controller
 
         $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first();
         $chkid = $request->input('chkid');
-       
+
         return response()->json(['success' =>  $chk,'id'=> $request->input('id')]);
     }
 
@@ -4680,11 +4726,11 @@ class IncominglabController extends Controller
         ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
         ->where('nt_oqa_file.id_createlab',$request->input('id'))->first();
         // $gcms = nhkviewgcms::gcms($oqafile->id_createlab,$oqafile->id_model);
- 
+
         $countgcms =  DB::table('nt_outgassing_gcms')->where('id_model',$oqafile->id_model)->count();
         $file = storage_path('app/public/OQA/GCMS/'.$oqafile->file_gcms);
         $chk = 0;
-        
+
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $sheet = $spreadsheet->getActiveSheet(0);
         $cell=$sheet->getCell('G18')->getCalculatedValue();
@@ -4800,8 +4846,8 @@ class IncominglabController extends Controller
         }
         $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first();
         $chkid = $request->input('chkid');
-        
- 
+
+
         return response()->json(['success' =>  $chk,'id'=> $request->input('id')]);
     }
 
@@ -4814,7 +4860,7 @@ class IncominglabController extends Controller
         ->where('nt_oqa_file.id_createlab',$request->input('id'))->first();
         $file = storage_path('app/public/OQA/GhostTest/'.$oqafile->file_semtest);
         $chk = 0;
-         
+
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $sheet = $spreadsheet->getActiveSheet(0);
         $values=$sheet->getCell('G9')->getCalculatedValue();
@@ -4833,7 +4879,7 @@ class IncominglabController extends Controller
         {
             $chk = 0;
         }
-             
+
         $subject = "[CAS program]_You have a new cleanliness results!!!";
 
         $data = [
@@ -4865,14 +4911,14 @@ class IncominglabController extends Controller
         }
         $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first();
         $chkid = $request->input('chkid');
-         
+
         return response()->json(['success' =>  $chk,'id'=> $request->input('id')]);
     }
-       
+
     // public function getModalList(Request $request)
     // {
     //     $option = $request->selects;
-       
+
     //     $model = DB::table('nt_model')->select('id_model','status_model','name_model')->where('model_type','LIKE', $option.'%')->where('status_model',1)->get();
     //     $data = array(
     //         "model" => $model,
@@ -4907,14 +4953,14 @@ class IncominglabController extends Controller
 
     public function newchkconfirmgcms(Request $request)
     {
-           
+
             $id = $request->input('id');
             $oqafile =  DB::table('nt_oqa_file')
             ->join('nt_oqa_lab', 'nt_oqa_lab.id_createlab', '=', 'nt_oqa_file.id_createlab')
             ->join('nt_model', 'nt_model.id_model', '=', 'nt_oqa_lab.id_model')
             ->where('nt_oqa_file.id_createlab',$request->input('id'))->first();
             // $gcms = nhkviewgcms::gcms($oqafile->id_createlab,$oqafile->id_model);
-    
+
             $countgcms =  DB::table('nt_outgassing_gcms')->where('id_model',$oqafile->id_model)->count();
             $file = storage_path('app/public/OQA/GCMS/'.$oqafile->file_gcms);
 
@@ -4927,16 +4973,16 @@ class IncominglabController extends Controller
             ];
             DB::table('nt_oqa_lab')->where('id_createlab', $id)->update($text_aml_gcms);
             //* 4.SGT AML return */
-            
+
             $chk = 0;
             Excel::load($file, function($doc)use($id,$oqafile,$countgcms,&$chk) {
-    
+
                 $sheet = $doc->setActiveSheetIndexByName('Sheet1');
                 $cell=$sheet->getCell('E75')->getCalculatedValue();
-    
+
                 if($cell != "")
                 {
-    
+
                     $ftimechk = $sheet->getCell('C14')->getCalculatedValue();
                     $ftime = date("Y/m/d H:i:s", strtotime($ftimechk));
                     $B21 = $sheet->getCell('E21')->getCalculatedValue();
@@ -4945,7 +4991,7 @@ class IncominglabController extends Controller
                     $B45 = $sheet->getCell('E45')->getCalculatedValue();
                     $B46 = $sheet->getCell('E46')->getCalculatedValue();
                     $B65 = $sheet->getCell('E65')->getCalculatedValue();
-    
+
                     $sum_smear = $B21+ $B32+ $B37+$B45+$B46+$B65;
                     $oqagcms = [
                         'gcms_smear' => $sum_smear,
@@ -4954,8 +5000,8 @@ class IncominglabController extends Controller
                         'gcms_high_mw' => $sheet->getCell('E74')->getCalculatedValue(),
                         'gcms_datesave' => date('Y-m-d H:i:s'),
                         'gcms_st' => 1,
-                    ]; 
-    
+                    ];
+
                     $outg = [
                         'id_model' => $oqafile->id_model,
                         'id_createlab' => $oqafile->id_createlab,
@@ -5019,12 +5065,12 @@ class IncominglabController extends Controller
                         'c34'=>$sheet->getCell('E73')->getCalculatedValue(),
                         'c35'=>$sheet->getCell('E74')->getCalculatedValue(),
                         'total'=>$sheet->getCell('E75')->getCalculatedValue(),
-    
+
                         'c19_4'=>$sheet->getCell('E76')->getCalculatedValue(),
                         'c19_5'=>$sheet->getCell('E77')->getCalculatedValue(),
                         'c35_1'=>$sheet->getCell('E78')->getCalculatedValue(),
                         'c35_2'=>$sheet->getCell('E79')->getCalculatedValue(),
-    
+
                         'spare_01'=>(($sheet->getCell('E80')->getCalculatedValue() != 'N/A')? $sheet->getCell('E80')->getCalculatedValue() : null),
                         'spare_02'=>(($sheet->getCell('E81')->getCalculatedValue() != 'N/A')? $sheet->getCell('E81')->getCalculatedValue() : null),
                         'spare_03'=>(($sheet->getCell('E82')->getCalculatedValue() != 'N/A')? $sheet->getCell('E82')->getCalculatedValue() : null),
@@ -5062,7 +5108,7 @@ class IncominglabController extends Controller
                         'spare_35'=>(($sheet->getCell('E114')->getCalculatedValue() != 'N/A')? $sheet->getCell('E114')->getCalculatedValue() : null),
                         'spare_36'=>(($sheet->getCell('E115')->getCalculatedValue() != 'N/A')? $sheet->getCell('E115')->getCalculatedValue() : null),
                         'spare_37'=>(($sheet->getCell('E116')->getCalculatedValue() != 'N/A')? $sheet->getCell('E116')->getCalculatedValue() : null),
-    
+
                     ];
                     $countoutg =  DB::table('nt_outgassing_gcms')
                     ->where('id_model',$oqafile->id_model)
@@ -5074,7 +5120,7 @@ class IncominglabController extends Controller
                     {
                         DB::table('nt_outgassing_gcms')->where('id_createlab', $oqafile->id_createlab)->where('id_model', $oqafile->id_model)->update($outg);
                     }
-    
+
                     DB::table('nt_datacf_gcms')->where('id_createlab', $id)->update($oqagcms);
                     DB::table('nt_data_gcms')->where('id_createlab', $id)->update($oqagcms);
                     $updates = [
@@ -5082,7 +5128,7 @@ class IncominglabController extends Controller
                        'ftime_gcms' =>$ftime,
                     ];
                     DB::table('nt_oqa_lab')->where('id_createlab', $id)->update($updates);
-                    
+
                     //----------- measurement L/T -------------
                     $file_id = $oqafile->file_id;
                     $restart = $sheet->getCell('J13')->getValue();
@@ -5093,7 +5139,7 @@ class IncominglabController extends Controller
                         $start = str_replace(".0", "", $start);
 
                         $start = date('Y-m-d H:i:s',strtotime($start));
-                        $end = date('Y-m-d H:i:s',strtotime($end)); 
+                        $end = date('Y-m-d H:i:s',strtotime($end));
 
                         $dataupdate = [
                             'gcms_begin' => $start,
@@ -5105,14 +5151,14 @@ class IncominglabController extends Controller
                         $end = $sheet->getCell('C14')->getCalculatedValue();
 
                         $start = date('Y-m-d H:i:s',strtotime($start));
-                        $end = date('Y-m-d H:i:s',strtotime($end)); 
+                        $end = date('Y-m-d H:i:s',strtotime($end));
 
                         $dataupdate = [
                             'gcms_begin' => $start,
                             'gcms_lasttime' => $end,
                         ];
                         DB::table('nt_oqa_file')->where('file_id', $file_id)->update($dataupdate);
-                    } 
+                    }
                     //----------- measurement L/T -------------
                     $chk = 1;
                 }
@@ -5122,10 +5168,10 @@ class IncominglabController extends Controller
                 }
             });
 
-            $gcms = nhkviewgcms::gcms($oqafile->id_createlab,$oqafile->id_model); 
-    
+            $gcms = nhkviewgcms::gcms($oqafile->id_createlab,$oqafile->id_model);
+
             $subject = "[CAS program]_You have a new cleanliness results!!!";
-    
+
             $data = [
                 'subject'=>$subject,
                 'testter'=>"GCMS",
@@ -5142,7 +5188,7 @@ class IncominglabController extends Controller
                     'stgcms_mail' => 1,
                 ];
                 DB::table('nt_oqa_lab')->where('id_createlab', $oqafile->id_createlab)->update($dataupdate);
-    
+
             }
             else if($oqafile->stgcms_mail == 1)
             {
@@ -5153,12 +5199,12 @@ class IncominglabController extends Controller
                     ];
                     DB::table('nt_oqa_lab')->where('id_createlab', $oqafile->id_createlab)->update($dataupdate);
                 }
-    
+
             }
             $oqafilemail =  DB::table('nt_oqa_lab')->where('id_createlab',$request->input('id'))->first();
             $chkid = $request->input('chkid');
-            
-            // -------------- check status Sigma ratio ---------------------- 
+
+            // -------------- check status Sigma ratio ----------------------
             $ratiogcms = 0;
             $checkretio = new ResultsControlle();
             $val_checkretio =  $checkretio->chkconfirmRatio($oqafile->id_createlab);
@@ -5166,10 +5212,10 @@ class IncominglabController extends Controller
                 $ratiogcms += intval($val_checkretio);
             }
             // -------------- check status Sigma ratio ----------------------
-    
+
             if($chkid == 1)
-            { 
-		        if($gcms > 0 && $ratiogcms > 0){	
+            {
+		        if($gcms > 0 && $ratiogcms > 0){
                     $data = [
                         'testter'=>"GCMS",
                         'model'=>$oqafile->name_model,
@@ -5185,7 +5231,7 @@ class IncominglabController extends Controller
                 }
             }
             else if($chkid == 2)
-            { 
+            {
 		        if( $gcms > 0 && $ratiogcms > 0 ){
                     $data = [
                         'testter'=>"GCMS",
@@ -5211,40 +5257,40 @@ class IncominglabController extends Controller
                 $compound_gcms = DB::table('nt_compound_gcms')->where('id_createlab', $id_createlab)->count();
                 if ($compound_gcms > 0) {
                     DB::table('nt_compound_gcms')->where('id_createlab', $id_createlab)->delete();
-                }    
-                
+                }
+
                 Excel::load($file, function($doc)use($id,$oqafile,$countgcms,&$chk) {
-    
+
                     $sheet = $doc->setActiveSheetIndexByName('Sample');
-                    $cell=$sheet->getCell('G35')->getCalculatedValue(); 
-    
+                    $cell=$sheet->getCell('G35')->getCalculatedValue();
+
                     if($cell == "HUMP")
                     {
-                        for ($i=35; $i <= 132 ; $i++) { 
-    
+                        for ($i=35; $i <= 132 ; $i++) {
+
                             if($sheet->getCell('G'.$i)->getOldCalculatedValue() != '-'){
-    
+
                                 if ($i == 35) {
                                     $keyword = $cell;
                                 } else {
                                     $keyword = $sheet->getCell('H'.$i)->getOldCalculatedValue();
                                 }
-    
+
                                 if (DB::table('nt_compound_gcms_unit')->where('compound_name','LIKE', $keyword)->count() == 0) {
-                                
+
                                     $insert = [
                                         'compound_name' => $keyword,
-                                    ];  
+                                    ];
                                     $compound_unit_id = DB::table('nt_compound_gcms_unit')->insert($insert);
-    
+
                                 }else{
-    
+
                                     $compound_unit = DB::table('nt_compound_gcms_unit')->where('compound_name','LIKE', $keyword)->first();
                                     $compound_unit_id = $compound_unit->id_cmp;
                                 }
-                                        
+
                                 $qty = $sheet->getCell('F'.$i)->getOldCalculatedValue();
-    
+
                                 $data = [
                                     'id_createlab' => $oqafile->id_createlab,
                                     'id_model' => $oqafile->id_model,
@@ -5253,24 +5299,24 @@ class IncominglabController extends Controller
                                     'datesave' => date('Y-m-d H:i:s')
                                 ];
                                 DB::table('nt_compound_gcms')->insert($data);
- 
-    
+
+
                             }
-    
+
                         }
                     }
-         
+
                 });
 
             }
-               
-            // ----------- insert Compound GCMS NHK2 --------------  
-            
+
+            // ----------- insert Compound GCMS NHK2 --------------
+
             return response()->json(['success' =>  $chk,'id'=> $request->input('id')]);
     }
 
     public function upload_lpc_jnhk(Request $request)
-    { 
+    {
 
         $uploadedFile = $request->file('fileInput_LPC');
         if(!empty($uploadedFile)){
@@ -5278,7 +5324,7 @@ class IncominglabController extends Controller
 
             // อ่านไฟล์ Excel ที่อัปโหลด
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($uploadedFile->getPathname());
-            $sheet = $spreadsheet->setActiveSheetIndex(1); 
+            $sheet = $spreadsheet->setActiveSheetIndex(1);
 
             $modelname = $sheet->getCell('G13')->getValue();
             $partnumber = $sheet->getCell('F13')->getValue();
@@ -5286,7 +5332,7 @@ class IncominglabController extends Controller
 
             $lab = DB::table('nt_oqa_lab')->where('id_createlab', $request->id_createlab)->first();
             $model = DB::table('nt_model')->where('id_model', $lab->id_model)->first();
-        
+
             if (!empty($model)){
                 if ($modelname == $model->name_model
                 && $partnumber == $model->part_number
@@ -5314,10 +5360,10 @@ class IncominglabController extends Controller
                         'date' => $lab->save_date,
                     ];
                     $mail = new MailController();
-                    @$mail->mailUploadJNHK($datamail); 
+                    @$mail->mailUploadJNHK($datamail);
 
                     return response()->json(['success' => 1]);
-                
+
 
                 }else{
                     return response()->json(['success' => 'Upload wrong detail!']);
@@ -5331,7 +5377,7 @@ class IncominglabController extends Controller
         }
 
     }
-    
+
     public function upload_gcms_jnhk(Request $request)
     {
 
@@ -5342,7 +5388,7 @@ class IncominglabController extends Controller
 
             // อ่านไฟล์ Excel ที่อัปโหลด
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($uploadedFile->getPathname());
-            $sheet = $spreadsheet->setActiveSheetIndex(1); 
+            $sheet = $spreadsheet->setActiveSheetIndex(1);
 
             $modelname = $sheet->getCell('E8')->getValue();
             $partnumber = $sheet->getCell('E7')->getValue();
@@ -5350,17 +5396,17 @@ class IncominglabController extends Controller
 
             $lab = DB::table('nt_oqa_lab')->where('id_createlab', $request->id_createlab)->first();
             $model = DB::table('nt_model')->where('id_model', $lab->id_model)->first();
-        
+
             if (!empty($model)){
                 if ($modelname == $model->name_model
                 && $partnumber == $model->part_number
                 && $lotnumber == $lab->lotnumber_lab ) {
 
                     $filejnhk = DB::table('nt_oqa_aml_file')->where('id_createlab', $request->id_createlab)->first();
-                
+
                     $save['file_jnhk_gcms'] = $uploadedFileName;
                     $save['file_jnhk_gcms'] = date('Y-m-d H:i:s');
-                    
+
                     // ตรวจสอบว่ามีไฟล์ที่ชื่อ 'zipFile' อัปโหลดมาหรือไม่
                     if ($request->hasFile('zipFile')) {
                         if ($request->file('zipFile')->isValid() && $request->file('zipFile')->getClientOriginalExtension() === 'zip') {
@@ -5386,10 +5432,10 @@ class IncominglabController extends Controller
                         'date' => $lab->save_date,
                     ];
                     $mail = new MailController();
-                    @$mail->mailUploadJNHK($datamail); 
+                    @$mail->mailUploadJNHK($datamail);
 
                     return response()->json(['success' => 1]);
-                
+
                 }else{
                     return response()->json(['success' => 'Upload wrong detail!']);
                 }
@@ -5401,7 +5447,7 @@ class IncominglabController extends Controller
             return response()->json(['success' => 'File not found!']);
         }
     }
- 
+
     public function log_scanbarcode(Request $request)
     {
         $deta = [
@@ -5416,6 +5462,6 @@ class IncominglabController extends Controller
         DB::table('log_scanbarcode')->insert($deta);
         return response()->json(['success' => 1]);
     }
-   
+
 
 }

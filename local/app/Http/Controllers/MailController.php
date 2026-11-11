@@ -26,7 +26,7 @@ class MailController extends Controller
 
     public function mailconfirm($data)
     {
-        
+
         $subject = $data['subject'];
         $body =  "<html><head><body>
                 <b>".$subject."</b><br>
@@ -72,7 +72,7 @@ class MailController extends Controller
                 </html>
                 <br><br><br>
             ";
-        
+
         $info  = [
             'body' => $body,
             'subject' => $subject,
@@ -88,16 +88,17 @@ class MailController extends Controller
             'sarocha.man@nhkspg.co.th',
             'narupon@nhkspg.co.th',
             'numfon.sin@nhkspg.co.th',
+            'dataqa.dds@nhkspg.co.th',
             ])->subject($info['subject']);
 			$message->from('cleanliness.dds@nhkspg.co.th');
-        }); 
-        
+        });
+
     }
 
      public function mailalarm($data)
     {
-         
-        $subject = "[CAS program]_Cleanliness data NG!"; 
+
+        $subject = "[CAS program]_Cleanliness data NG!";
         $body =  "<html><head><body style='font-family: Tahoma;'>
         <b>".$subject."</b><br>
         Attention all,<br><br>
@@ -154,12 +155,12 @@ class MailController extends Controller
         </body>
         </html>
         <br><br><br>";
-            
+
 
         $info  = [
             'body' => $body,
-            'subject' => $subject, 
-        ]; 
+            'subject' => $subject,
+        ];
 
         $test =   Mail::send(['html' => 'mail'], $info, function ($message) use ($info) {
             $message->to(['cleanliness.lab@nhkspg.co.th',
@@ -170,8 +171,8 @@ class MailController extends Controller
                 'sarocha.man@nhkspg.co.th',
                 'narupon@nhkspg.co.th',
                 'numfon.sin@nhkspg.co.th',
-                'dataqa.dds@nhkspg.co.th', 
-                'kittana.jar@nhkspg.co.th', 
+                'dataqa.dds@nhkspg.co.th',
+                'kittana.jar@nhkspg.co.th',
                 'montri.khe@nhkspg.co.th',
                 'noppadon@nhkspg.co.th',
                 'patavee.sak@nhkspg.co.th',
@@ -185,7 +186,7 @@ class MailController extends Controller
             ])->subject($info['subject']);
             $message->from('cleanliness.dds@nhkspg.co.th');
         });
-        
+
     }
 
     public function mailalarmstaff($data)
@@ -263,8 +264,8 @@ class MailController extends Controller
                 'sarocha.man@nhkspg.co.th',
                 'narupon@nhkspg.co.th',
                 'numfon.sin@nhkspg.co.th',
-                'dataqa.dds@nhkspg.co.th', 
-                'kittana.jar@nhkspg.co.th', 
+                'dataqa.dds@nhkspg.co.th',
+                'kittana.jar@nhkspg.co.th',
                 'montri.khe@nhkspg.co.th',
                 'noppadon@nhkspg.co.th',
                 'patavee.sak@nhkspg.co.th',
@@ -505,7 +506,7 @@ class MailController extends Controller
 
     public function maileditdata($data)
     {
-        
+
         $subject = "[CAS program]_Staff already REVIEW data";
         // $body =  "<html><head><body>
         // Dear all,<br><br><br><br>
@@ -664,10 +665,10 @@ class MailController extends Controller
         });
     }
 
-    static function mailmonitoring()  
+    static function mailmonitoring()
     {
 
-        $subject = "[CAS program]_Monitoring of tester";     
+        $subject = "[CAS program]_Monitoring of tester";
         $message =  "<html><head><body style='font-family: Tahoma;'>
         Dear all,<br><br>
         <p>สรุปผล Monitoring of tester ที่ On-going ตามรายละเอียดด้านล่าง</p>
@@ -706,10 +707,10 @@ class MailController extends Controller
             $message .= "<td style='border: 1px solid;'>".$value->name_tester."</td>";
             $message .= "<td style='border: 1px solid;'>".$value->topic."</td>";
             $message .= "</tr>";
-        }    
-         
+        }
+
         $message .= "</table>";
-  
+
         $today = date('Y-m-d');
         $timetoday = date('H:i');
         $targettime = date('09:00');
@@ -719,10 +720,10 @@ class MailController extends Controller
         if (($today == $targetDate1) || ($today == $targetDate2)) {
 
             if($timetoday >= $targettime){
-                
+
                 if(DB::table('nt_monitor_log_mail')->where('date','LIKE',$today)->count() == 0){
 
-                    $data = [  
+                    $data = [
                         'date' => $today
                     ];
                     DB::table('nt_monitor_log_mail')->insert($data);
@@ -742,16 +743,16 @@ class MailController extends Controller
                         'numfon.sin@nhkspg.co.th',
                         'dataqa.dds@nhkspg.co.th',
                         ])->subject($info['subject']);
-                        $message->from('cleanliness.dds@nhkspg.co.th'); 
+                        $message->from('cleanliness.dds@nhkspg.co.th');
                     });
 
                 }
             }
 
         }
- 
 
-    } 
+
+    }
 
     public function mailconfirmlpcWD($data)
     {
@@ -852,7 +853,7 @@ class MailController extends Controller
             <tr>
                 <td>Lot number</td>
                 <td>" . $data['lot'] . "</td>
-            </tr> 
+            </tr>
             <tr>
                 <td>Upload date </td>
                 <td>" . $data['date'] . "</td>
@@ -875,7 +876,7 @@ class MailController extends Controller
             'body' => $body,
             'subject' => $subject,
         ];
-        
+
         $test = Mail::send(['html' => 'mail'], $info, function ($message) use ($info) {
             $message->to(['cleanliness.lab@nhkspg.co.th',
             'weerawan.iea@nhkspg.co.th',
@@ -889,7 +890,7 @@ class MailController extends Controller
             ])->subject($info['subject']);
             $message->from('cleanliness.dds@nhkspg.co.th');
         });
-       
+
     }
 
     public function mailconfirmgcmsAML($data)
@@ -908,7 +909,7 @@ class MailController extends Controller
         //     <td><a href='http://10.6.100.17/cas_program/local/storage/NHK-File/OQA/JNHK/LPC/" . $zipfiles . "'>>>Click Dowload<<</a></td>
         // </tr>
         // <p>The document operator has prepared the <b style='color: #1f9eff;'>AML</b> file as detailed below.</p><br>
- 
+
             $subject = "[CAS program]_Return AML file already updated";
             $body =  "<html><head><body style='font-family: Tahoma;'>
             <p style=' font-size: x-large; font-family: fantasy; color: #1f9eff;'>[Return AML file]</p>
@@ -929,7 +930,7 @@ class MailController extends Controller
                 <tr>
                     <td>Lot number</td>
                     <td>" . $data['lot'] . "</td>
-                </tr> 
+                </tr>
                 <tr>
                     <td>Upload date </td>
                     <td>" . $data['date'] . "</td>
@@ -984,7 +985,7 @@ class MailController extends Controller
             <tr>
                 <td>Lot number</td>
                 <td>" . $data['lot'] . "</td>
-            </tr> 
+            </tr>
             <tr>
                 <td>Upload date </td>
                 <td>" . $data['date'] . "</td>
@@ -1021,9 +1022,9 @@ class MailController extends Controller
 
 
     }
-      
 
-    
+
+
 
 
 }

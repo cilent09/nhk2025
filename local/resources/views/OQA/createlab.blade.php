@@ -1671,6 +1671,10 @@ $('#submitcreatelab').click(function () {
                     } else {
                         swal("warning", data.message, "warning");
                     }
+                },
+                error: function (xhr) {
+                    var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : "เกิดข้อผิดพลาด ไม่สามารถบันทึกได้";
+                    swal("warning", msg, "warning");
                 }
             });
         });
@@ -1707,9 +1711,17 @@ $('#submitcreatelab').click(function () {
                     } else {
                         swal("warning", data.message, "warning");
                     }
+                },
+                error: function (xhr) {
+                    var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : "เกิดข้อผิดพลาด ไม่สามารถบันทึกได้";
+                    swal("warning", msg, "warning");
                 }
             });
         });
+    }
+
+    if(chktype.indexOf("WD_") == -1 && chktype.indexOf("SGT_") == -1){
+        swal("warning", "ประเภท Model ไม่ถูกต้อง (ต้องเป็น WD_ หรือ SGT_)", "warning");
     }
 
 

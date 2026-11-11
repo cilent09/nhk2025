@@ -22474,6 +22474,10 @@
                         {
                             $model2 = $a1;
                         }
+                        // ชื่อกราฟต้องตรงกับ part จริง: text1 = UP (model1), text2 = DN (model2)
+                        // เดิมใช้ลำดับ id ที่ส่งมาจากหน้าเว็บ ทำให้กราฟ DN ได้ชื่อ UP เมื่อเลือก DN ก่อน
+                        $text1 = $model1->name_model;
+                        $text2 = $model2->name_model;
                         $dateend1 = date('Y-m-d 00:00:00', strtotime($request->input('dateend'.$model1->id_model). ' + 1 day'));
                         $dateend2 = date('Y-m-d 00:00:00', strtotime($request->input('dateend'.$model2->id_model). ' + 1 day'));
                         $datalablpc = DB::table('nt_datacf_lpc')
