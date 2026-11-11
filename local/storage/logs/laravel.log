@@ -4169,3 +4169,12 @@ hkv2025\\local\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\K
 hkv2025\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #63 {main}
 "} 
+[2026-11-12 00:38:36] local.ERROR: ob_end_clean(): failed to delete buffer. No buffer to delete {"exception":"[object] (ErrorException(code: 0): ob_end_clean(): failed to delete buffer. No buffer to delete at C:\\xampp\\htdocs\
+hkv2025\\local\\app\\Http\\Controllers\\ExcelChartController.php:13176)
+[stacktrace]
+#0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'ob_end_clean():...', 'C:\\\\xampp\\\\htdocs...', 13176, Array)
+#1 C:\\xampp\\htdocs\
+hkv2025\\local\\app\\Http\\Controllers\\ExcelChartController.php(13176): ob_end_clean()
+#2 C:\\Users\\garci\\AppData\\Local\\Temp\\claude\\363c4a24dc260323\\d8cd3b22-922e-43fa-9163-2b8708234572\\scratchpad\\gen.php(12): App\\Http\\Controllers\\ExcelChartController->excelc_exportexcel(Object(Illuminate\\Http\\Request))
+#3 {main}
+"} 

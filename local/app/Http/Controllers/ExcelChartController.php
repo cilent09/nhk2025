@@ -11854,14 +11854,15 @@
                     {
                         $datagcms = [];
                         $datagcmsshow = [];
+                        // part DN: หัวคอลัมน์ต้องเป็น DN (เดิมตั้งผิดเป็น UP ทำให้ชื่อเส้นในกราฟ DN แสดงเป็น UP)
                         $gcmshead = array (
                             'TGA date code(Produced)',
-                            'Average (Up)',
+                            'Average (DN)',
                             'Lot number',
-                            'Upper control limit_UP',
-                            'Lower control limit_UP',
-                            'Trigger limit_UP',
-                            'Specification_UP',
+                            'Upper control limit_DN',
+                            'Lower control limit_DN',
+                            'Trigger limit_DN',
+                            'Specification_DN',
                             'Starting time',
                             'Finish time',
                             'CL',
@@ -12327,7 +12328,7 @@
                         $worksheet->getStyle("U31:AB".$i)->getNumberFormat()->setFormatCode('0');
                         $worksheet->getStyle("V32:V".$i)->getNumberFormat()->setFormatCode('0.0'); // ใหม่
                         $dataSeriesLabels = [
-                        new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'high_MW!$U$31', null, 31), 
+                        new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'high_MW!$V$31', null, 31), // Average (DN) (เดิมชี้ U31 = หัวคอลัมน์วันที่)
                         ];
                         array_push($dataSeriesLabels,new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'high_MW!$X$31', null, 31));
                         array_push($dataSeriesLabels, new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'high_MW!$AD$31', null, 31));
