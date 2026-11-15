@@ -1357,6 +1357,14 @@ class IncominglabController extends Controller
 
     public function createlabSubmit(Request $request)
     {
+        // กันกดส่งซ้ำ/ส่งพร้อมกันของ Lot เดียวกัน ไม่ให้ข้อมูลใน nt_data_* / nt_datacf_* ซ้ำ
+        return $this->withCreatelabLock($request, function () use ($request) {
+            return $this->createlabSubmitProcess($request);
+        });
+    }
+
+    private function createlabSubmitProcess(Request $request)
+    {
         $idmodel = $request->input('chkmodel');
         $chkaddid = $request->input('chkaddid');
         $modelparameter = DB::table('nt_model_parameter')->where('id_model',$idmodel)->where('id_model_p',1)->first();
@@ -1486,8 +1494,8 @@ class IncominglabController extends Controller
                         'id_createlab' => $getidcreatelab,
                     ];
 
-                    DB::table('nt_data_lpc')->insert($datalpc);
-                    DB::table('nt_datacf_lpc')->insert($datalpc);
+                    $this->insertLabDataOnce('nt_data_lpc', $datalpc);
+                    $this->insertLabDataOnce('nt_datacf_lpc', $datalpc);
                     if($lotcount > 0)
                     {
 
@@ -1549,8 +1557,8 @@ class IncominglabController extends Controller
                     $datasem = [
                         'id_createlab' => $getidcreatelab,
                     ];
-                    DB::table('nt_data_sem')->insert($datasem);
-                    DB::table('nt_datacf_sem')->insert($datasem);
+                    $this->insertLabDataOnce('nt_data_sem', $datasem);
+                    $this->insertLabDataOnce('nt_datacf_sem', $datasem);
                     if($lotcount > 0)
                     {
                     DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_sem' => $st_sem, 'file_sem' => $semfilename,'date_sem' => $date_sem,'sem_startime'=>$sem_startime]);
@@ -1591,8 +1599,8 @@ class IncominglabController extends Controller
                     $dataic = [
                         'id_createlab' => $getidcreatelab,
                     ];
-                    DB::table('nt_data_ic')->insert($dataic);
-                    DB::table('nt_datacf_ic')->insert($dataic);
+                    $this->insertLabDataOnce('nt_data_ic', $dataic);
+                    $this->insertLabDataOnce('nt_datacf_ic', $dataic);
                     if($lotcount > 0)
                     {
                     DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_ic' => $st_ic, 'file_ic' => $icfilename,'date_ic' => $date_ic,'ic_startime'=>$ic_startime]);
@@ -1634,8 +1642,8 @@ class IncominglabController extends Controller
                     $datagcms = [
                         'id_createlab' => $getidcreatelab,
                     ];
-                    DB::table('nt_data_gcms')->insert($datagcms);
-                    DB::table('nt_datacf_gcms')->insert($datagcms);
+                    $this->insertLabDataOnce('nt_data_gcms', $datagcms);
+                    $this->insertLabDataOnce('nt_datacf_gcms', $datagcms);
                     if($lotcount > 0)
                     {
                     DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_gcms' => $st_gcms, 'file_gcms' => $gcmsfilename,'date_gcms' => $date_gcms,'gcms_startime'=>$gcms_startime]);
@@ -1676,8 +1684,8 @@ class IncominglabController extends Controller
                     $dataftir = [
                         'id_createlab' => $getidcreatelab,
                     ];
-                    DB::table('nt_data_ftir')->insert($dataftir);
-                    DB::table('nt_datacf_ftir')->insert($dataftir);
+                    $this->insertLabDataOnce('nt_data_ftir', $dataftir);
+                    $this->insertLabDataOnce('nt_datacf_ftir', $dataftir);
                     if($lotcount > 0)
                     {
                     DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_ftir' => $st_ftir, 'file_ftir' => $ftirfilename,'date_ftir' => $date_ftir,'ftir_startime'=>$ftir_startime]);
@@ -1843,7 +1851,7 @@ class IncominglabController extends Controller
                     $dataftir = [
                         'id_createlab' => $getidcreatelab,
                     ];
-                    DB::table('nt_data_ftir')->insert($dataftir);
+                    $this->insertLabDataOnce('nt_data_ftir', $dataftir);
                 }
                 else
                 {
@@ -4020,7 +4028,56 @@ class IncominglabController extends Controller
         return null;
     }
 
+    /**
+     * Insert แถวเริ่มต้นลง nt_data_* / nt_datacf_* เฉพาะเมื่อ id_createlab นั้นยังไม่มีแถว
+     * (เดิม insert ทุกครั้ง ทำให้ Lot ที่สร้างซ้ำ หรือกดส่งซ้ำ มีข้อมูลซ้ำในหน้า Results)
+     */
+    private function insertLabDataOnce($table, array $data)
+    {
+        if (empty($data['id_createlab'])) {
+            return false;
+        }
+
+        $exists = DB::table($table)->where('id_createlab', $data['id_createlab'])->exists();
+        if ($exists) {
+            return false;
+        }
+
+        return DB::table($table)->insert($data);
+    }
+
+    /**
+     * ล็อกต่อ Lot number (MySQL GET_LOCK) ระหว่างสร้าง OQA Incoming
+     * ให้ request ของ Lot เดียวกันทำทีละรายการ ไม่แทรกกันจนเกิดข้อมูลซ้ำ
+     */
+    private function withCreatelabLock(Request $request, \Closure $callback)
+    {
+        $lockName = 'nhk_createlab_' . md5((string) $request->input('txt_lotnumber'));
+
+        $got = DB::selectOne('SELECT GET_LOCK(?, 30) AS l', [$lockName]);
+        if (!$got || (int) $got->l !== 1) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'Lot นี้กำลังถูกบันทึกอยู่ กรุณารอสักครู่แล้วลองใหม่',
+            ]);
+        }
+
+        try {
+            return $callback();
+        } finally {
+            DB::selectOne('SELECT RELEASE_LOCK(?) AS l', [$lockName]);
+        }
+    }
+
     public function createlabWDSubmit(Request $request)
+    {
+        // กันกดส่งซ้ำ/ส่งพร้อมกันของ Lot เดียวกัน ไม่ให้ข้อมูลใน nt_data_* / nt_datacf_* ซ้ำ
+        return $this->withCreatelabLock($request, function () use ($request) {
+            return $this->createlabWDSubmitProcess($request);
+        });
+    }
+
+    private function createlabWDSubmitProcess(Request $request)
     {
 
         ini_set('memory_limit', '-1');
@@ -4146,8 +4203,8 @@ class IncominglabController extends Controller
             $datalpc = [
                 'id_createlab' => $getidcreatelab,
             ];
-            DB::table('nt_data_lpc')->insert($datalpc);
-            DB::table('nt_datacf_lpc')->insert($datalpc);
+            $this->insertLabDataOnce('nt_data_lpc', $datalpc);
+            $this->insertLabDataOnce('nt_datacf_lpc', $datalpc);
 
             if($lotcount > 0)
             {
@@ -4184,8 +4241,8 @@ class IncominglabController extends Controller
             $datasem = [
                 'id_createlab' => $getidcreatelab,
             ];
-            DB::table('nt_data_sem')->insert($datasem);
-            DB::table('nt_datacf_sem')->insert($datasem);
+            $this->insertLabDataOnce('nt_data_sem', $datasem);
+            $this->insertLabDataOnce('nt_datacf_sem', $datasem);
             if($lotcount > 0)
             {
                 DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_sem' => $st_sem, 'file_sem' => $semfilename,'date_sem' => $date_sem,'sem_startime'=>$sem_startime]);
@@ -4217,8 +4274,8 @@ class IncominglabController extends Controller
             $dataic = [
                 'id_createlab' => $getidcreatelab,
             ];
-            DB::table('nt_data_ic')->insert($dataic);
-            DB::table('nt_datacf_ic')->insert($dataic);
+            $this->insertLabDataOnce('nt_data_ic', $dataic);
+            $this->insertLabDataOnce('nt_datacf_ic', $dataic);
             if($lotcount > 0)
             {
                 DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_ic' => $st_ic, 'file_ic' => $icfilename,'date_ic' => $date_ic,'ic_startime'=>$ic_startime]);
@@ -4258,8 +4315,8 @@ class IncominglabController extends Controller
             $dataftir = [
                 'id_createlab' => $getidcreatelab,
             ];
-            DB::table('nt_data_ftir')->insert($dataftir);
-            DB::table('nt_datacf_ftir')->insert($dataftir);
+            $this->insertLabDataOnce('nt_data_ftir', $dataftir);
+            $this->insertLabDataOnce('nt_datacf_ftir', $dataftir);
             if($lotcount > 0)
             {
                 DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_ftir' => $st_ftir, 'file_ftir' => $ftirfilename,'date_ftir' => $date_ftir,'ftir_startime'=>$ftir_startime]);
@@ -4328,8 +4385,8 @@ class IncominglabController extends Controller
             $datagcms = [
                 'id_createlab' => $getidcreatelab,
             ];
-            DB::table('nt_data_gcms')->insert($datagcms);
-            DB::table('nt_datacf_gcms')->insert($datagcms);
+            $this->insertLabDataOnce('nt_data_gcms', $datagcms);
+            $this->insertLabDataOnce('nt_datacf_gcms', $datagcms);
             if($lotcount > 0)
             {
             DB::table('nt_oqa_file')->where('id_createlab', $lotfirst->id_createlab)->update(['st_gcms' => $st_gcms, 'file_gcms' => $gcmsfilename,'date_gcms' => $date_gcms,'gcms_startime'=>$gcms_startime]);
